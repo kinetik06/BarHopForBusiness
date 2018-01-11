@@ -54,19 +54,19 @@ public class BarDetailsActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_bar_details);
+        setContentView(R.layout.main_bar_detail_ui);
         Intent intent = getIntent();
         barName = intent.getStringExtra("barname");
         barAddress = intent.getStringExtra("baraddress");
-        barNameTV = (TextView)findViewById(R.id.bar_name_tv);
-        barAddressTV = (TextView)findViewById(R.id.bar_address_tv);
+        barNameTV = (TextView)findViewById(R.id.bar_name);
+        barAddressTV = (TextView)findViewById(R.id.bar_address);
         barNameTV.setText(barName);
         barAddressTV.setText(barAddress);
         Log.d("CHECK:", barName + barAddress);
         signOut = (Button) findViewById(R.id.sign_out_button);
         final EditText barCapET = (EditText) findViewById(R.id.bar_cap);
         eventET = (EditText)findViewById(R.id.event_et);
-        submit = (Button) findViewById(R.id.update_bar_button);
+        //submit = (Button) findViewById(R.id.update_bar_button);
         mDatabaseReference = FirebaseDatabase.getInstance().getReference();
         mFirebaseUser = FirebaseAuth.getInstance().getCurrentUser();
         if (mFirebaseUser != null) {
@@ -76,7 +76,7 @@ public class BarDetailsActivity extends AppCompatActivity {
         StorageReference storageRef = storage.getReferenceFromUrl("gs://bar-hop-b83f2.appspot.com");
         final StorageReference profilePicRef = storageRef.child(userId).child(profilePic);
 
-        submit.setOnClickListener(new View.OnClickListener() {
+        /*submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
@@ -96,14 +96,14 @@ public class BarDetailsActivity extends AppCompatActivity {
                     startActivity(intent);
                 }
             }
-        });
-        signOut.setOnClickListener(new View.OnClickListener() {
+        });*/
+        /*signOut.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 FirebaseAuth.getInstance().signOut();
                 startActivity(new Intent(BarDetailsActivity.this, LoginActivity.class));
             }
-        });
+        });*/
     }
 
     /*private void addNewBar(String barName, String barAddress , int barCap, int barCount, String userId) {

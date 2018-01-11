@@ -16,6 +16,10 @@ public class Bar {
     private String barAddress;
     private String barPhotoURI;
     private String userId;
+    private String barEvent;
+    private String placeId;
+    private double latitude;
+    private double longitude;
 
     public String getBarEvent() {
         return barEvent;
@@ -25,7 +29,7 @@ public class Bar {
         this.barEvent = barEvent;
     }
 
-    private String barEvent;
+
 
     public String getPlaceId() {
         return placeId;
@@ -35,7 +39,7 @@ public class Bar {
         this.placeId = placeId;
     }
 
-    private String placeId;
+
 
     public double getLatitude() {
         return latitude;
@@ -53,8 +57,7 @@ public class Bar {
         this.longitude = longitude;
     }
 
-    private double latitude;
-    private double longitude;
+
 
     public String getUserId() {
         return userId;

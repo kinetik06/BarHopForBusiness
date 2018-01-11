@@ -84,6 +84,8 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
     private String mCurrentPhotoPath;
     static final int REQUEST_TAKE_PHOTO = 1;
     private EditText barCapET;
+    ImageView plusOne;
+    ImageView minusOne;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -111,8 +113,10 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
         final TextView barNameTV = (TextView) findViewById(R.id.bar_name);
         final TextView barAddressTV = (TextView) findViewById(R.id.bar_notes);
         final TextView barCountTV = (TextView) findViewById(R.id.count);
-        plusOneButton = (Button) findViewById(R.id.buttonIn);
-        minusOneButton = (Button) findViewById(R.id.buttonOut);
+        //plusOneButton = (Button) findViewById(R.id.buttonIn);
+        //minusOneButton = (Button) findViewById(R.id.buttonOut);
+        plusOne = (ImageView) findViewById(R.id.plusOne);
+        minusOne = (ImageView) findViewById(R.id.minusOne);
 
 
         barImage = (ImageView)findViewById(R.id.bar_image);
@@ -184,7 +188,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
                         startActivity(intent);
                     }
                 });
-                plusOneButton.setOnClickListener(new View.OnClickListener() {
+                /*plusOneButton.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         if (barCap == 0) {
@@ -206,6 +210,37 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
                             barCount = 0;
                         }
                         mDatabaseReference.child("barCount").setValue(barCount);
+                    }
+                });*/
+
+                plusOne.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+
+                        if (barCap == 0) {
+                            Toast.makeText(MainActivity.this, "Please set your Capacity!", Toast.LENGTH_SHORT).show();
+                        }
+
+                        barCount = barCount + 1;
+
+                        if (barCount >= barCap) {
+                            barCount = barCap;
+                        }
+                        mDatabaseReference.child("barCount").setValue(barCount);
+
+                    }
+                });
+
+                minusOne.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+
+                        barCount = barCount - 1;
+                        if (barCount < 0) {
+                            barCount = 0;
+                        }
+                        mDatabaseReference.child("barCount").setValue(barCount);
+
                     }
                 });
 
@@ -307,19 +342,22 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
             barImage.buildDrawingCache();
             Bitmap bitmap = barImage.getDrawingCache();
             ByteArrayOutputStream baos = new ByteArrayOutputStream();
-            imageBitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
+            imageBitmap.compress(Bitmap.CompressFormat.JPEG, 10, baos);
             byte[] datas = baos.toByteArray();
 
             UploadTask uploadTask = profilePicRef.putBytes(datas);
             uploadTask.addOnFailureListener(new OnFailureListener() {
                 @Override
                 public void onFailure(@NonNull Exception exception) {
+
+                    Toast.makeText(MainActivity.this, "Upload Failed: Check Connection", Toast.LENGTH_SHORT).show();
                     // Handle unsuccessful uploads
                 }
             }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                 @Override
                 public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
                     // taskSnapshot.getMetadata() contains file metadata such as size, content-type, and download URL.
+                    Toast.makeText(MainActivity.this, "Upload Successful!", Toast.LENGTH_SHORT).show();
                     Uri downloadUrl = taskSnapshot.getDownloadUrl();
                 }
             });
