@@ -3,12 +3,14 @@ package com.zombietechinc.barhopforbusiness;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.content.FileProvider;
+import android.support.v4.content.res.ResourcesCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -52,6 +54,7 @@ import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Objects;
 
 public class MainActivity extends AppCompatActivity implements GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener {
 
@@ -86,6 +89,8 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
     private EditText barCapET;
     ImageView plusOne;
     ImageView minusOne;
+    Typeface typeface;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -110,9 +115,15 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
         profilePicRef = storageRef.child(userId).child(profilePic);
             //set views
         setContentView(R.layout.activity_main);
+
+        typeface = ResourcesCompat.getFont(this, R.font.geosanslight);
         final TextView barNameTV = (TextView) findViewById(R.id.bar_name);
         final TextView barAddressTV = (TextView) findViewById(R.id.bar_notes);
         final TextView barCountTV = (TextView) findViewById(R.id.count);
+
+        barNameTV.setTypeface(typeface);
+        barAddressTV.setTypeface(typeface);
+        barCountTV.setTypeface(typeface);
         //plusOneButton = (Button) findViewById(R.id.buttonIn);
         //minusOneButton = (Button) findViewById(R.id.buttonOut);
         plusOne = (ImageView) findViewById(R.id.plusOne);
@@ -143,51 +154,58 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
 
                 Bar bar = dataSnapshot.getValue(Bar.class);
 
-                barName = bar.getBarName();
-                barAddress = bar.getBarAddress();
-                barAddressTV.setText(bar.getBarAddress());
-                barCount = bar.getBarCount();
-                barCap = bar.getBarCap();
-                placeId = bar.getPlaceId();
+                if (!dataSnapshot.exists()) {
 
-                //Get Bar Image
-                final long ONE_MEGABYTE = 1024 * 1024;
-                profilePicRef.getBytes(ONE_MEGABYTE).addOnSuccessListener(new OnSuccessListener<byte[]>() {
-                    @Override
-                    public void onSuccess(byte[] bytes) {
-                        // Data for "profilepic.jpg" is returns, use this as needed
-                    Bitmap bitmap = BitmapFactory.decodeByteArray(bytes,0,bytes.length);
-                        barImage.setImageBitmap(bitmap);
-                    }
-                }).addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception exception) {
-                        // Handle any errors
-                    }
-                });
+                    Toast.makeText(MainActivity.this, "Error- Loading Info", Toast.LENGTH_SHORT).show();
+
+                } else {
+
+                    barName = bar.getBarName();
+                    Log.d(TAG, bar.getBarName());
+                    barAddress = bar.getBarAddress();
+                    barAddressTV.setText(bar.getBarAddress());
+                    barCount = bar.getBarCount();
+                    barCap = bar.getBarCap();
+                    placeId = bar.getPlaceId();
+
+                    //Get Bar Image
+                    final long ONE_MEGABYTE = 1024 * 1024;
+                    profilePicRef.getBytes(ONE_MEGABYTE).addOnSuccessListener(new OnSuccessListener<byte[]>() {
+                        @Override
+                        public void onSuccess(byte[] bytes) {
+                            // Data for "profilepic.jpg" is returns, use this as needed
+                            Bitmap bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
+                            barImage.setImageBitmap(bitmap);
+                        }
+                    }).addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception exception) {
+                            // Handle any errors
+                        }
+                    });
 
 
+                    barImage.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            dispatchTakePictureIntent();
+                        }
+                    });
 
-                barImage.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        dispatchTakePictureIntent();
-                    }
-                });
-
-                barNameTV.setText(barName);
-                barCountTV.setText(String.valueOf(barCount));
-                //set up another click listener
-                //TODO make one lisetener for all click events
-                barNameTV.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        Intent intent = new Intent(MainActivity.this, BarDetailsActivity.class);
-                        intent.putExtra("barname", barName);
-                        intent.putExtra("baraddress", barAddress);
-                        startActivity(intent);
-                    }
-                });
+                    barNameTV.setText(barName);
+                    barCountTV.setText(String.valueOf(barCount));
+                    //set up another click listener
+                    //TODO make one lisetener for all click events
+                    barNameTV.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            Intent intent = new Intent(MainActivity.this, BarDetailsActivity.class);
+                            intent.putExtra("barname", barName);
+                            Log.d(TAG, "barname= " + barName);
+                            intent.putExtra("baraddress", barAddress);
+                            startActivity(intent);
+                        }
+                    });
                 /*plusOneButton.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -213,43 +231,46 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
                     }
                 });*/
 
-                plusOne.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
+                    plusOne.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
 
-                        if (barCap == 0) {
-                            Toast.makeText(MainActivity.this, "Please set your Capacity!", Toast.LENGTH_SHORT).show();
+                            if (barCap == 0) {
+                                Toast.makeText(MainActivity.this, "Please set your Capacity!", Toast.LENGTH_SHORT).show();
+                            }
+
+                            barCount = barCount + 1;
+
+                            if (barCount >= barCap) {
+                                barCount = barCap;
+                            }
+                            mDatabaseReference.child("barCount").setValue(barCount);
+
                         }
+                    });
 
-                        barCount = barCount + 1;
+                    minusOne.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
 
-                        if (barCount >= barCap) {
-                            barCount = barCap;
+                            barCount = barCount - 1;
+                            if (barCount < 0) {
+                                barCount = 0;
+                            }
+                            mDatabaseReference.child("barCount").setValue(barCount);
+
                         }
-                        mDatabaseReference.child("barCount").setValue(barCount);
+                    });
 
-                    }
-                });
+                }
 
-                minusOne.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
+                }
 
-                        barCount = barCount - 1;
-                        if (barCount < 0) {
-                            barCount = 0;
-                        }
-                        mDatabaseReference.child("barCount").setValue(barCount);
+                @Override
+                public void onCancelled (DatabaseError databaseError){
 
-                    }
-                });
+                }
 
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
         };
         mDatabaseReference.addValueEventListener(valueEventListener);
 
@@ -289,8 +310,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
     @Override
     protected void onResume() {
         super.onResume();
-        Intent intent = getIntent();
-        barName = intent.getStringExtra("barname");
+
     }
 
     @Override
