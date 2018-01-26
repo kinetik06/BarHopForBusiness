@@ -15,9 +15,11 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.animation.AlphaAnimation;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -56,6 +58,9 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Objects;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
 public class MainActivity extends AppCompatActivity implements GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener {
 
     private static final String TAG = MainActivity.class.getSimpleName();
@@ -90,6 +95,10 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
     ImageView plusOne;
     ImageView minusOne;
     Typeface typeface;
+    @BindView(R.id.addtion)LinearLayout addition;
+    @BindView(R.id.subtraction) LinearLayout subtraction;
+    @BindView(R.id.plusSignTV)TextView plusSignTV;
+
 
 
     @Override
@@ -114,7 +123,47 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
         storageRef = storage.getReferenceFromUrl("gs://bar-hop-b83f2.appspot.com");
         profilePicRef = storageRef.child(userId).child(profilePic);
             //set views
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.new_main_counter);
+
+        ButterKnife.bind(this);
+        final AlphaAnimation swellAnimation = new AlphaAnimation(0.5f, 0.7f );
+        swellAnimation.setDuration(200);
+
+
+        addition.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                plusSignTV.startAnimation(swellAnimation);
+
+                if (barCap == 0) {
+                    Toast.makeText(MainActivity.this, "Please set your Capacity!", Toast.LENGTH_SHORT).show();
+                }
+
+                barCount = barCount + 1;
+
+                if (barCount >= barCap) {
+                    barCount = barCap;
+                }
+                mDatabaseReference.child("barCount").setValue(barCount);
+
+            }
+        });
+
+        subtraction.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                subtraction.startAnimation(swellAnimation);
+
+                barCount = barCount - 1;
+                if (barCount < 0) {
+                    barCount = 0;
+                }
+                mDatabaseReference.child("barCount").setValue(barCount);
+
+            }
+        });
 
         typeface = ResourcesCompat.getFont(this, R.font.geosanslight);
         final TextView barNameTV = (TextView) findViewById(R.id.bar_name);

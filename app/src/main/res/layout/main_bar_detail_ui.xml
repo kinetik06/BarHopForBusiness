@@ -9,11 +9,98 @@
     <LinearLayout
         android:layout_width="match_parent"
 
-        android:orientation="vertical"
+        android:orientation="horizontal"
         android:layout_height="80dp"
 
         android:background="@color/main_top_grey"
         android:paddingTop="5dp">
+
+        <LinearLayout
+            android:layout_width="45dp"
+            android:layout_height="45dp">
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+
+                android:src="@drawable/menu_icon_copy"
+                android:scaleType="centerCrop"
+                android:id="@+id/menu_iconIV"/>
+
+
+
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:layout_marginRight="45dp"
+
+            >
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+
+                android:orientation="horizontal"
+                android:gravity="center_horizontal"
+
+                >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/barhopTV1"
+                    android:text="BAR"
+                    android:paddingTop="15dp"
+                    android:textSize="20sp"
+                    android:shadowColor="@color/white"
+                    android:textStyle="bold"
+                    android:shadowDx="2"
+                    android:shadowDy="2"
+                    android:shadowRadius="2"/>
+                <LinearLayout
+                    android:layout_width="50dp"
+                    android:layout_height="42dp"
+                    android:paddingLeft="5dp"
+                    android:paddingRight="5dp">
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@mipmap/logo2"
+                        android:scaleType="fitCenter"/>
+
+                </LinearLayout>
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingTop="15dp"
+                    android:id="@+id/barhopTV2"
+                    android:textSize="20sp"
+                    android:text="HOP"
+                    android:shadowColor="@color/white"
+                    android:textStyle="bold"
+                    android:shadowDx="2"
+                    android:shadowDy="2"
+                    android:shadowRadius="2"/>
+
+
+
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="for Business"
+                android:layout_gravity="center_horizontal"
+                android:id="@+id/forBusinessTV"/>
+
+        </LinearLayout>
+
 
         <!--<ImageView
             android:id="@+id/imageView"
@@ -24,62 +111,9 @@
             android:paddingTop="10dp"
             />-->
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-
-            android:orientation="horizontal"
-            android:gravity="center_horizontal"
-
-            >
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/barhopTV1"
-                android:text="BAR"
-                android:paddingTop="15dp"
-                android:textSize="20sp"
-                android:shadowColor="@color/white"
-                android:textStyle="bold"
-                android:shadowDx="2"
-                android:shadowDy="2"
-                android:shadowRadius="2"/>
-            <LinearLayout
-                android:layout_width="50dp"
-                android:layout_height="42dp"
-                android:paddingLeft="5dp"
-                android:paddingRight="5dp">
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@mipmap/ic_launcher"
-                    android:scaleType="fitCenter"/>
-
-            </LinearLayout>
 
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:paddingTop="15dp"
-                android:id="@+id/barhopTV2"
-                android:textSize="20sp"
-                android:text="HOP"
-                android:shadowColor="@color/white"
-                android:textStyle="bold"
-                android:shadowDx="2"
-                android:shadowDy="2"
-                android:shadowRadius="2"/>
 
-        </LinearLayout>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="for Business"
-            android:layout_gravity="center_horizontal"
-            android:id="@+id/forBusinessTV"/>
 
     </LinearLayout>
 
@@ -142,140 +176,73 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:weightSum="2">
+
+        >
 
 
         <LinearLayout
             android:layout_width="0dp"
-            android:layout_height="150dp"
-            android:layout_weight="1">
-
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:gravity="center_horizontal"
+            >
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Daily Specials"
+                android:textSize="25sp"
+                />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Daily Specials:"/>
-
-        </LinearLayout>
-
-
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="350dp"
-            android:layout_weight="1"
-            android:orientation="vertical">
-
-            <LinearLayout
-                android:layout_width="match_parent"
+                android:text="Monday"
+                android:textSize="15sp"
+                android:id="@+id/mondayTV"
+                android:paddingBottom="2dp"/>
+            <TextView
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Monday:"/>
-
-                <EditText
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
+                android:text="Tuesday"
+                android:textSize="15sp"
+                android:id="@+id/tuedayTV"
+                android:paddingBottom="2dp"/>
+            <TextView
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Tuesday:"/>
-
-                <EditText
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
+                android:text="Wednesday"
+                android:textSize="15sp"
+                android:id="@+id/wednesdayTV"
+                android:paddingBottom="2dp"/>
+            <TextView
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Wednesday:"/>
-
-                <EditText
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
+                android:text="Thursday"
+                android:textSize="15sp"
+                android:id="@+id/thursdayTV"
+                android:paddingBottom="2dp"/>
+            <TextView
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Thursday:"/>
-
-                <EditText
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
+                android:text="Friday"
+                android:textSize="15sp"
+                android:id="@+id/fridayTV"
+                android:paddingBottom="2dp"/>
+            <TextView
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Friday:"/>
-
-                <EditText
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
+                android:text="Saturday"
+                android:textSize="15sp"
+                android:id="@+id/saturdayTV"
+                android:paddingBottom="2dp"/>
+            <TextView
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Saturday:"/>
-
-                <EditText
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Sunday:"/>
-
-                <EditText
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
-
-            </LinearLayout>
+                android:text="Sunday"
+                android:textSize="15sp"
+                android:id="@+id/sundayTV"
+                android:paddingBottom="2dp"/>
 
 
         </LinearLayout>
@@ -287,7 +254,18 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="300dp"
-            android:background="@color/black">
+            android:background="@color/black"
+            >
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/white"
+                android:text="Save Changes"
+                android:paddingTop="10dp"
+                android:textSize="20dp"
+                android:gravity="center"
+                android:id="@+id/saveChangeTV"/>
 
 
 

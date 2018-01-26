@@ -1,5 +1,7 @@
 package com.zombietechinc.barhopforbusiness;
 
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -10,15 +12,23 @@ import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.v4.content.FileProvider;
 import android.support.v4.content.res.ResourcesCompat;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.SpannableStringBuilder;
+import android.text.Spanned;
 import android.text.TextUtils;
+import android.text.style.ForegroundColorSpan;
 import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.PopupMenu;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -27,8 +37,11 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
@@ -37,9 +50,14 @@ import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 
-public class BarDetailsActivity extends AppCompatActivity {
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
+public class BarDetailsActivity extends AppCompatActivity implements PopupMenu.OnMenuItemClickListener, View.OnClickListener {
 
     String barName;
     String barAddress;
@@ -71,12 +89,50 @@ public class BarDetailsActivity extends AppCompatActivity {
     TextView barhopTV1;
     TextView barhopTV2;
     TextView forBusinessTV;
+    PopupMenu popupMenu;
+    @BindView(R.id.mondayTV) TextView mondayTV;
+    @BindView(R.id.tuedayTV) TextView tuesdayTV;
+    @BindView(R.id.wednesdayTV)TextView wednesdayTV;
+    @BindView(R.id.thursdayTV)TextView thursdayTV;
+    @BindView(R.id.fridayTV)TextView fridayTV;
+    @BindView(R.id.saturdayTV)TextView saturdayTV;
+    @BindView(R.id.sundayTV) TextView sundayTV;
+    @BindView(R.id.saveChangeTV) TextView saveChangeTV;
+
+    ArrayList<String> dailySpecials;
+    String dayOfWeek;
+
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main_bar_detail_ui);
+
+
+        popupMenu = new PopupMenu(this, findViewById(R.id.menu_iconIV));
+        popupMenu.getMenu().add(Menu.NONE, 1, Menu.NONE, "Log Out");
+        popupMenu.setOnMenuItemClickListener(this);
+        findViewById(R.id.menu_iconIV).setOnClickListener(this);
+
+        //set resources for Daily TextVIews
+
+        ButterKnife.bind(this);
+        mondayTV.setOnClickListener(this);
+        tuesdayTV.setOnClickListener(this);
+        wednesdayTV.setOnClickListener(this);
+        thursdayTV.setOnClickListener(this);
+        fridayTV.setOnClickListener(this);
+        saturdayTV.setOnClickListener(this);
+        sundayTV.setOnClickListener(this);
+
+        dailySpecials = new ArrayList<>();
+
+
+
+
+
+
 
         Intent intent = getIntent();
         barName = intent.getStringExtra("barname");
@@ -106,6 +162,81 @@ public class BarDetailsActivity extends AppCompatActivity {
         if (mFirebaseUser != null) {
             userId = mFirebaseUser.getUid();
         }
+
+        //Pull current Bar Object
+
+        final DatabaseReference barRef = FirebaseDatabase.getInstance().getReference().child("bars").child(userId);
+        barRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                final Bar bar = dataSnapshot.getValue(Bar.class);
+                if (bar.getSpecialsArray() == null || bar.getSpecialsArray().size() > 7){
+                    Log.d(TAG, "String Array is empty or does not exist -- Or is too big");
+                }else {
+                    for (int j = 0; j < bar.getSpecialsArray().size(); j++){
+                        dailySpecials.add(bar.getSpecialsArray().get(j));
+                        Log.d(TAG, bar.getSpecialsArray().get(j));
+                        //TODO update Text Views for Days
+
+                        mondayTV.setText(bar.getSpecialsArray().get(0));
+                        tuesdayTV.setText(bar.getSpecialsArray().get(1));
+                        wednesdayTV.setText(bar.getSpecialsArray().get(2));
+                        thursdayTV.setText(bar.getSpecialsArray().get(3));
+                        fridayTV.setText(bar.getSpecialsArray().get(4));
+                        saturdayTV.setText(bar.getSpecialsArray().get(5));
+                        sundayTV.setText(bar.getSpecialsArray().get(6));
+
+
+                    }
+
+
+
+
+                }
+                saveChangeTV.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+
+                        dailySpecials = new ArrayList<>();
+
+                        Log.d(TAG, "Daily Special Arraylist: " + dailySpecials);
+
+                        Log.d(TAG, "SAVED");
+
+                        String[] daysArray =  {mondayTV.getText().toString(), tuesdayTV.getText().toString(), wednesdayTV.getText().toString(),
+                                thursdayTV.getText().toString(), fridayTV.getText().toString(),
+                                saturdayTV.getText().toString(), sundayTV.getText().toString()};
+
+                        Log.d(TAG, "String Array: " + Arrays.toString(daysArray));
+
+                        dailySpecials.addAll(Arrays.asList(daysArray));
+
+                        Bar barUpdate = new Bar(bar.getBarName(), bar.getBarCount(), bar.getBarCap(), bar.getBarAddress(), bar.getBarPhotoURI(),
+                                bar.getLatitude(), bar.getLongitude(), bar.getUserId(), bar.getPlaceId(), bar.getBarEvent(), dailySpecials);
+
+                        barRef.setValue(barUpdate).addOnSuccessListener(new OnSuccessListener<Void>() {
+                            @Override
+                            public void onSuccess(Void aVoid) {
+                                Toast.makeText(BarDetailsActivity.this, "Changes Updated Successfully", Toast.LENGTH_SHORT).show();
+                            }
+                        }).addOnFailureListener(new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception e) {
+                                Toast.makeText(BarDetailsActivity.this, "Update Failed: Try Again.", Toast.LENGTH_SHORT).show();
+                            }
+                        });
+
+                    }
+                });
+
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
         storage = FirebaseStorage.getInstance();
         storageRef = storage.getReferenceFromUrl("gs://bar-hop-b83f2.appspot.com");
         profilePicRef = storageRef.child(userId).child(profilePic);
@@ -125,6 +256,13 @@ public class BarDetailsActivity extends AppCompatActivity {
             }
         });
 
+        barNameTV.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent1 = new Intent(BarDetailsActivity.this, MainActivity.class);
+                startActivity(intent1);
+            }
+        });
 
 
         barImage.setOnClickListener(new View.OnClickListener() {
@@ -248,6 +386,135 @@ public class BarDetailsActivity extends AppCompatActivity {
 
         Log.d("Path: ", mCurrentPhotoPath);
         return image;
+    }
+
+    @Override
+    public boolean onMenuItemClick(MenuItem item) {
+
+        switch (item.getItemId()){
+            case 1:
+                FirebaseAuth.getInstance().signOut();
+                Intent intent = new Intent(BarDetailsActivity.this, LoginActivity.class);
+                startActivity(intent);
+
+        }
+
+        return false;
+    }
+
+    @Override
+    public void onClick(View v) {
+
+        switch (v.getId()){
+            case R.id.menu_iconIV:
+                popupMenu.show();
+                break;
+
+            case R.id.mondayTV:
+                Log.d(TAG, "Monday");
+                dayOfWeek = "Monday";
+                getAlertDialog(this, dayOfWeek, mondayTV).show();
+                break;
+
+            case R.id.tuedayTV:
+                Log.d(TAG, "Tuesday");
+                dayOfWeek = "Tuesday";
+                getAlertDialog(this, dayOfWeek, tuesdayTV).show();
+                break;
+
+            case R.id.wednesdayTV:
+                Log.d(TAG, "Wednesday");
+                dayOfWeek = "Wednesday";
+                getAlertDialog(this, dayOfWeek, wednesdayTV).show();
+                break;
+
+            case R.id.thursdayTV:
+                Log.d(TAG, "Thursday");
+                dayOfWeek = "Thursday";
+                getAlertDialog(this, dayOfWeek, thursdayTV).show();
+                break;
+
+            case R.id.fridayTV:
+                Log.d(TAG, "Friday");
+                dayOfWeek = "Friday";
+                getAlertDialog(this, dayOfWeek, fridayTV).show();
+                break;
+
+            case R.id.saturdayTV:
+                Log.d(TAG, "Saturday");
+                dayOfWeek = "Saturday";
+                getAlertDialog(this, dayOfWeek, saturdayTV).show();
+                break;
+
+            case R.id.sundayTV:
+                Log.d(TAG, "Sunday");
+                dayOfWeek = "Sunday";
+                getAlertDialog(this, dayOfWeek, sundayTV).show();
+                break;
+
+            default:
+                break;
+        }
+
+
+
+    }
+
+    public boolean isEmptyStringArray(ArrayList<String> array){
+        for(int i=0; i<array.size(); i++){
+            if(array.get(i)!=null){
+                return false;
+            }
+        }
+        return true;
+    }
+
+    public AlertDialog.Builder getAlertDialog(final Context context, final String dayOfWeek, final TextView dayOfWeekTV){
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(context);
+
+        //Try to change color
+
+        ForegroundColorSpan titleColorSpan = new ForegroundColorSpan(getResources().getColor(R.color.main_card_border_orange));
+        ForegroundColorSpan messageColorSpan = new ForegroundColorSpan(getResources().getColor(R.color.main_top_grey));
+        SpannableStringBuilder spannableTitle = new SpannableStringBuilder(dayOfWeek);
+        SpannableStringBuilder spannableMessage = new SpannableStringBuilder("What is your special for " + dayOfWeek + "?");
+
+        spannableTitle.setSpan(titleColorSpan, 0, spannableTitle.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+        spannableMessage.setSpan(messageColorSpan, 0, spannableMessage.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+
+
+
+        builder.setTitle(spannableTitle);
+        builder.setMessage(spannableMessage);
+
+
+        View view = LayoutInflater.from(context).inflate(R.layout.special_dialog, (ViewGroup)findViewById(android.R.id.content),false);
+        final EditText specialET = (EditText) view.findViewById(R.id.specialET);
+        specialET.requestFocus();
+        builder.setView(view);
+
+        builder.setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                if (specialET.getText() != null && !specialET.getText().toString().equals("")){
+                    dialog.dismiss();
+                    dayOfWeekTV.setText(specialET.getText());
+                }else {
+                    Toast.makeText(context, "Please enter a Special for " + dayOfWeek, Toast.LENGTH_SHORT).show();
+                }
+
+            }
+        });
+
+        builder.setNegativeButton(android.R.string.cancel, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.cancel();
+            }
+        });
+
+        return builder;
     }
 }
 

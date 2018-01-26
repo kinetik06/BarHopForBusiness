@@ -37,4 +37,5 @@
     <string name="forgot_password_msg">We just need your registered Email Id to sent you password reset instructions.</string>
     <string name="title_activity_signup">SignupActivity</string>
     <string name="places_api_key">AIzaSyBAGOa2lzZlhbL_swob5LFnvRCvMQLb1Ys</string>
+    <string name="padding_daysofweek">1dp</string>
 </resources>
