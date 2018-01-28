@@ -173,83 +173,114 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-
-        >
-
-
         <LinearLayout
-            android:layout_width="0dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:orientation="vertical"
-            android:gravity="center_horizontal"
-            >
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Daily Specials"
-                android:textSize="25sp"
-                />
+
+            android:orientation="vertical">
+
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Monday"
-                android:textSize="15sp"
-                android:id="@+id/mondayTV"
-                android:paddingBottom="2dp"/>
-            <TextView
-                android:layout_width="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_weight="1"
+                android:text="Daily Specials"
+                android:textSize="25sp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Tuesday"
-                android:textSize="15sp"
-                android:id="@+id/tuedayTV"
-                android:paddingBottom="2dp"/>
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Wednesday"
-                android:textSize="15sp"
-                android:id="@+id/wednesdayTV"
-                android:paddingBottom="2dp"/>
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Thursday"
-                android:textSize="15sp"
-                android:id="@+id/thursdayTV"
-                android:paddingBottom="2dp"/>
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Friday"
-                android:textSize="15sp"
-                android:id="@+id/fridayTV"
-                android:paddingBottom="2dp"/>
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Saturday"
-                android:textSize="15sp"
-                android:id="@+id/saturdayTV"
-                android:paddingBottom="2dp"/>
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Sunday"
-                android:textSize="15sp"
-                android:id="@+id/sundayTV"
-                android:paddingBottom="2dp"/>
+                android:weightSum="2"
+                android:orientation="horizontal"
+
+                >
+
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical"
+                        android:layout_weight="1">
+
+                        <TextView
+                            android:id="@+id/mondayTV"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:paddingBottom="2dp"
+                            android:text="Monday"
+                            android:textSize="15sp" />
+
+                        <TextView
+                            android:id="@+id/tuedayTV"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:paddingBottom="2dp"
+                            android:text="Tuesday"
+                            android:textSize="15sp" />
+
+                        <TextView
+                            android:id="@+id/wednesdayTV"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:paddingBottom="2dp"
+                            android:text="Wednesday"
+                            android:textSize="15sp" />
+
+                        <TextView
+                            android:id="@+id/thursdayTV"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:paddingBottom="2dp"
+                            android:text="Thursday"
+                            android:textSize="15sp" />
+
+                        <TextView
+                            android:id="@+id/fridayTV"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:paddingBottom="2dp"
+                            android:text="Friday"
+                            android:textSize="15sp" />
+
+                        <TextView
+                            android:id="@+id/saturdayTV"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:paddingBottom="2dp"
+                            android:text="Saturday"
+                            android:textSize="15sp" />
+
+                        <TextView
+                            android:id="@+id/sundayTV"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:paddingBottom="2dp"
+                            android:text="Sunday"
+                            android:textSize="15sp" />
+
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1">
+
+                    <android.support.v7.widget.RecyclerView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:id="@+id/barGenreRV">
+
+
+                    </android.support.v7.widget.RecyclerView>
+
+                </LinearLayout>
+
+            </LinearLayout>
 
 
         </LinearLayout>
-
-
-
-    </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
