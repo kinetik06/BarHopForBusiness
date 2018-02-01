@@ -8,8 +8,10 @@ import java.util.Date;
 
 public class DailySpecial {
 
-    String title;
+    String message;
     Date date;
+    String dateAsString;
+    int[] genreInt;
 
 
 }

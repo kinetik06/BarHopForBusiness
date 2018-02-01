@@ -15,6 +15,8 @@ import android.support.v4.content.res.ResourcesCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.text.SpannableStringBuilder;
 import android.text.Spanned;
 import android.text.TextUtils;
@@ -57,7 +59,7 @@ import java.util.Date;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class BarDetailsActivity extends AppCompatActivity implements PopupMenu.OnMenuItemClickListener, View.OnClickListener {
+public class BarDetailsActivity extends AppCompatActivity implements PopupMenu.OnMenuItemClickListener, View.OnClickListener{
 
     String barName;
     String barAddress;
@@ -90,6 +92,9 @@ public class BarDetailsActivity extends AppCompatActivity implements PopupMenu.O
     TextView barhopTV2;
     TextView forBusinessTV;
     PopupMenu popupMenu;
+
+    private RecyclerView.Adapter adapterBars;
+
     @BindView(R.id.mondayTV) TextView mondayTV;
     @BindView(R.id.tuedayTV) TextView tuesdayTV;
     @BindView(R.id.wednesdayTV)TextView wednesdayTV;
@@ -101,13 +106,18 @@ public class BarDetailsActivity extends AppCompatActivity implements PopupMenu.O
 
     ArrayList<String> dailySpecials;
     String dayOfWeek;
+    Context context;
+
 
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        context = this;
         setContentView(R.layout.main_bar_detail_ui);
+
 
 
         popupMenu = new PopupMenu(this, findViewById(R.id.menu_iconIV));
@@ -118,6 +128,14 @@ public class BarDetailsActivity extends AppCompatActivity implements PopupMenu.O
         //set resources for Daily TextVIews
 
         ButterKnife.bind(this);
+
+        adapterBars = new BarGenreAdapter(context, arrayOfBars);
+        mLinearLayoutManager = new LinearLayoutManager(context);
+        mLinearLayoutManager.setStackFromEnd(false);
+        mRecyclerView.setLayoutManager(mLinearLayoutManager);
+        mRecyclerView.setAdapter(nearestBars);
+
+
         mondayTV.setOnClickListener(this);
         tuesdayTV.setOnClickListener(this);
         wednesdayTV.setOnClickListener(this);
