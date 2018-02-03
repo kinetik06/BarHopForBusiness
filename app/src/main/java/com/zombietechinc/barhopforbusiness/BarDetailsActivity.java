@@ -107,6 +107,8 @@ public class BarDetailsActivity extends AppCompatActivity implements PopupMenu.O
     ArrayList<String> dailySpecials;
     String dayOfWeek;
     Context context;
+    ArrayList<DailySpecial> dailySpecialsArray;
+    LinearLayoutManager mLinearLayoutManager;
 
 
 
@@ -129,11 +131,11 @@ public class BarDetailsActivity extends AppCompatActivity implements PopupMenu.O
 
         ButterKnife.bind(this);
 
-        adapterBars = new BarGenreAdapter(context, arrayOfBars);
+        adapterBars = new BarGenreAdapter(context, dailySpecialsArray);
         mLinearLayoutManager = new LinearLayoutManager(context);
         mLinearLayoutManager.setStackFromEnd(false);
-        mRecyclerView.setLayoutManager(mLinearLayoutManager);
-        mRecyclerView.setAdapter(nearestBars);
+        /*mRecyclerView.setLayoutManager(mLinearLayoutManager);
+        mRecyclerView.setAdapter(nearestBars);*/
 
 
         mondayTV.setOnClickListener(this);
