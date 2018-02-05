@@ -11,7 +11,56 @@ public class DailySpecial {
     String message;
     Date date;
     String dateAsString;
-    int[] genreInt;
+    int genreInt;
 
+    public DailySpecial(){}
 
+    public DailySpecial(String message, Date date, String dateAsString, int genreInt){
+
+        this.message = message;
+        this.date = date;
+        this.dateAsString = dateAsString;
+        this.genreInt = genreInt;
+
+    }
+
+    public DailySpecial(String message, String dateAsString, int genreInt){
+
+        this.message = message;
+        this.dateAsString = dateAsString;
+        this.genreInt = genreInt;
+
+    }
+
+    public String getMessage() {
+        return message;
+    }
+
+    public void setMessage(String message) {
+        this.message = message;
+    }
+
+    public Date getDate() {
+        return date;
+    }
+
+    public void setDate(Date date) {
+        this.date = date;
+    }
+
+    public String getDateAsString() {
+        return dateAsString;
+    }
+
+    public void setDateAsString(String dateAsString) {
+        this.dateAsString = dateAsString;
+    }
+
+    public int getGenreInt() {
+        return genreInt;
+    }
+
+    public void setGenreInt(int genreInt) {
+        this.genreInt = genreInt;
+    }
 }

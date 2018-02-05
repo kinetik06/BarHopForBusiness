@@ -22,6 +22,15 @@ public class Bar {
     private double latitude;
     private double longitude;
     private ArrayList<String> specialsArray;
+    private ArrayList<DailySpecial> dailySpecialArrayList;
+
+    public ArrayList<DailySpecial> getDailySpecialArrayList() {
+        return dailySpecialArrayList;
+    }
+
+    public void setDailySpecialArrayList(ArrayList<DailySpecial> dailySpecialArrayList) {
+        this.dailySpecialArrayList = dailySpecialArrayList;
+    }
 
     public ArrayList<String> getSpecialsArray() {
         return specialsArray;
@@ -135,6 +144,24 @@ public class Bar {
         this.userId = userId;
         this.placeId = placeId;
         this.specialsArray = specialsArray;
+        this.barEvent = barEvent;
+
+
+    }
+
+    public Bar(String barName, int barCount, int barCap, String barAddress, String barPhotoURI, double latitude,
+               double longitude, String userId, String placeId , ArrayList<DailySpecial> dailySpecialArrayList, String barEvent){
+
+        this.barCap = barCap;
+        this.barCount = barCount;
+        this.barName = barName;
+        this.barAddress = barAddress;
+        this.barPhotoURI = barPhotoURI;
+        this.latitude = latitude;
+        this.longitude = longitude;
+        this.userId = userId;
+        this.placeId = placeId;
+        this.dailySpecialArrayList = dailySpecialArrayList;
         this.barEvent = barEvent;
 
 

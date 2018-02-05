@@ -103,6 +103,7 @@ public class BarDetailsActivity extends AppCompatActivity implements PopupMenu.O
     @BindView(R.id.saturdayTV)TextView saturdayTV;
     @BindView(R.id.sundayTV) TextView sundayTV;
     @BindView(R.id.saveChangeTV) TextView saveChangeTV;
+    @BindView(R.id.barGenreRV)RecyclerView mRecyclerView;
 
     ArrayList<String> dailySpecials;
     String dayOfWeek;
@@ -121,6 +122,7 @@ public class BarDetailsActivity extends AppCompatActivity implements PopupMenu.O
         setContentView(R.layout.main_bar_detail_ui);
 
 
+        dailySpecialsArray = new ArrayList<>();
 
         popupMenu = new PopupMenu(this, findViewById(R.id.menu_iconIV));
         popupMenu.getMenu().add(Menu.NONE, 1, Menu.NONE, "Log Out");
@@ -131,11 +133,16 @@ public class BarDetailsActivity extends AppCompatActivity implements PopupMenu.O
 
         ButterKnife.bind(this);
 
-        adapterBars = new BarGenreAdapter(context, dailySpecialsArray);
+        adapterBars = new BarGenreAdapter(BarDetailsActivity.this, dailySpecialsArray);
         mLinearLayoutManager = new LinearLayoutManager(context);
         mLinearLayoutManager.setStackFromEnd(false);
-        /*mRecyclerView.setLayoutManager(mLinearLayoutManager);
-        mRecyclerView.setAdapter(nearestBars);*/
+        mRecyclerView.setLayoutManager(mLinearLayoutManager);
+        mRecyclerView.setAdapter(adapterBars);
+
+        /*DailySpecial dailySpecial = new DailySpecial("Sunday FunDay", new Date(), "Sunday", 6);
+        DailySpecial dailySpecial1 = new DailySpecial("Monday Madness", new Date(), "Monday", 1);
+        dailySpecialsArray.add(dailySpecial);
+        dailySpecialsArray.add(dailySpecial1);*/
 
 
         mondayTV.setOnClickListener(this);
@@ -186,6 +193,73 @@ public class BarDetailsActivity extends AppCompatActivity implements PopupMenu.O
         //Pull current Bar Object
 
         final DatabaseReference barRef = FirebaseDatabase.getInstance().getReference().child("bars").child(userId);
+
+        //Daily Special code
+
+        barRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+
+                Bar bar = dataSnapshot.getValue(Bar.class);
+                if (bar.getDailySpecialArrayList() == null || bar.getDailySpecialArrayList().size() > 7){
+                    Log.d(TAG, "Special array empty or does not exist");
+                    DailySpecial mondaySpecial = new DailySpecial("Tap to edit special", "Monday", 0);
+                    DailySpecial tuesdaySpecial = new DailySpecial("Tap to edit special", "Tuesday", 1);
+                    DailySpecial wednesdaySpecial = new DailySpecial("Tap to edit special", "Wednesday", 2);
+                    DailySpecial thursdaySpecial = new DailySpecial("Tap to edit special", "Thursday", 3);
+                    DailySpecial fridaySpecial = new DailySpecial("Tap to edit special", "Friday", 4);
+                    DailySpecial saturdaySpecial = new DailySpecial("Tap to edit special", "Saturday", 5);
+                    DailySpecial sundaySpecial = new DailySpecial("Tap to edit special", "Sunday", 6);
+                    dailySpecialsArray.add(mondaySpecial);
+                    dailySpecialsArray.add(tuesdaySpecial);
+                    dailySpecialsArray.add(wednesdaySpecial);
+                    dailySpecialsArray.add(thursdaySpecial);
+                    dailySpecialsArray.add(fridaySpecial);
+                    dailySpecialsArray.add(saturdaySpecial);
+                    dailySpecialsArray.add(sundaySpecial);
+                    adapterBars.notifyDataSetChanged();
+
+                    //Update Bar
+
+                    Bar barUpdate = new Bar(bar.getBarName(), bar.getBarCount(), bar.getBarCap(), bar.getBarAddress(), bar.getBarPhotoURI(),
+                            bar.getLatitude(), bar.getLongitude(), bar.getUserId(), bar.getPlaceId(), dailySpecialsArray, bar.getBarEvent());
+
+                    barRef.setValue(barUpdate).addOnSuccessListener(new OnSuccessListener<Void>() {
+                        @Override
+                        public void onSuccess(Void aVoid) {
+                            Toast.makeText(BarDetailsActivity.this, "Specials successfully created on server", Toast.LENGTH_SHORT).show();
+                        }
+                    });
+
+                }else {
+
+
+                    Log.d(TAG, "Array of Specials: " + bar.getDailySpecialArrayList().toString());
+
+                    for (int i = 0; i < bar.getDailySpecialArrayList().size(); i++){
+                        dailySpecialsArray.add(bar.getDailySpecialArrayList().get(i));
+                    }
+
+
+                    for (int i = 0; i < dailySpecialsArray.size(); i++){
+                        DailySpecial testSpecial = dailySpecialsArray.get(i);
+                        Log.d(TAG, testSpecial.getDateAsString());
+                        Log.d(TAG, testSpecial.getMessage());
+                        Log.d(TAG, String.valueOf(testSpecial.getGenreInt()));
+                    }
+
+                }
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+/*
+
+
         barRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -256,7 +330,7 @@ public class BarDetailsActivity extends AppCompatActivity implements PopupMenu.O
             public void onCancelled(DatabaseError databaseError) {
 
             }
-        });
+        });*/
         storage = FirebaseStorage.getInstance();
         storageRef = storage.getReferenceFromUrl("gs://bar-hop-b83f2.appspot.com");
         profilePicRef = storageRef.child(userId).child(profilePic);
