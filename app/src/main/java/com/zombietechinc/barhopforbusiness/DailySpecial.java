@@ -13,6 +13,16 @@ public class DailySpecial {
     String dateAsString;
     int genreInt;
 
+    public int getDayInt() {
+        return dayInt;
+    }
+
+    public void setDayInt(int dayInt) {
+        this.dayInt = dayInt;
+    }
+
+    int dayInt;
+
     public DailySpecial(){}
 
     public DailySpecial(String message, Date date, String dateAsString, int genreInt){
@@ -24,11 +34,12 @@ public class DailySpecial {
 
     }
 
-    public DailySpecial(String message, String dateAsString, int genreInt){
+    public DailySpecial(String message, String dateAsString, int genreInt, int dayInt){
 
         this.message = message;
         this.dateAsString = dateAsString;
         this.genreInt = genreInt;
+        this.dayInt = dayInt;
 
     }
 

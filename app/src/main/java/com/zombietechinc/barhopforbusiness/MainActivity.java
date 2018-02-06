@@ -95,9 +95,11 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
     ImageView plusOne;
     ImageView minusOne;
     Typeface typeface;
-    @BindView(R.id.addtion)LinearLayout addition;
-    @BindView(R.id.subtraction) LinearLayout subtraction;
-    @BindView(R.id.plusSignTV)TextView plusSignTV;
+    //@BindView(R.id.addtion)LinearLayout addition;
+    //@BindView(R.id.subtraction) LinearLayout subtraction;
+    //@BindView(R.id.plusSignTV)TextView plusSignTV;
+    @BindView(R.id.swipeLayout)LinearLayout swipeLayout;
+
 
 
 
@@ -123,10 +125,43 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
         storageRef = storage.getReferenceFromUrl("gs://bar-hop-b83f2.appspot.com");
         profilePicRef = storageRef.child(userId).child(profilePic);
             //set views
-        setContentView(R.layout.new_main_counter);
+        setContentView(R.layout.swipe_counter);
 
         ButterKnife.bind(this);
-        final AlphaAnimation swellAnimation = new AlphaAnimation(0.5f, 0.7f );
+
+        swipeLayout.setOnTouchListener(new OnSwipeTouchListener(MainActivity.this){
+
+            @Override
+            public void onSwipeLeft(){
+
+                barCount = barCount - 1;
+                if (barCount < 0) {
+                    barCount = 0;
+                }
+                mDatabaseReference.child("barCount").setValue(barCount);
+
+            }
+
+            @Override
+            public void onSwipeRight(){
+
+                if (barCap == 0) {
+                    Toast.makeText(MainActivity.this, "Please set your Capacity!", Toast.LENGTH_SHORT).show();
+                }
+
+                barCount = barCount + 1;
+
+                if (barCount >= barCap) {
+                    barCount = barCap;
+                }
+                mDatabaseReference.child("barCount").setValue(barCount);
+
+            }
+
+
+        });
+
+/*        final AlphaAnimation swellAnimation = new AlphaAnimation(0.5f, 0.7f );
         swellAnimation.setDuration(200);
 
 
@@ -163,7 +198,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
                 mDatabaseReference.child("barCount").setValue(barCount);
 
             }
-        });
+        });*/
 
         typeface = ResourcesCompat.getFont(this, R.font.geosanslight);
         final TextView barNameTV = (TextView) findViewById(R.id.bar_name);

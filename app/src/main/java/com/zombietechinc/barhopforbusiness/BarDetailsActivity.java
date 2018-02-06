@@ -55,6 +55,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -95,14 +96,14 @@ public class BarDetailsActivity extends AppCompatActivity implements PopupMenu.O
 
     private RecyclerView.Adapter adapterBars;
 
-    @BindView(R.id.mondayTV) TextView mondayTV;
+    /*@BindView(R.id.mondayTV) TextView mondayTV;
     @BindView(R.id.tuedayTV) TextView tuesdayTV;
     @BindView(R.id.wednesdayTV)TextView wednesdayTV;
     @BindView(R.id.thursdayTV)TextView thursdayTV;
     @BindView(R.id.fridayTV)TextView fridayTV;
     @BindView(R.id.saturdayTV)TextView saturdayTV;
-    @BindView(R.id.sundayTV) TextView sundayTV;
-    @BindView(R.id.saveChangeTV) TextView saveChangeTV;
+    @BindView(R.id.sundayTV) TextView sundayTV;*/
+    //@BindView(R.id.saveChangeTV) TextView saveChangeTV;
     @BindView(R.id.barGenreRV)RecyclerView mRecyclerView;
 
     ArrayList<String> dailySpecials;
@@ -122,7 +123,7 @@ public class BarDetailsActivity extends AppCompatActivity implements PopupMenu.O
         setContentView(R.layout.main_bar_detail_ui);
 
 
-        dailySpecialsArray = new ArrayList<>();
+        dailySpecialsArray = new ArrayList<>(7);
 
         popupMenu = new PopupMenu(this, findViewById(R.id.menu_iconIV));
         popupMenu.getMenu().add(Menu.NONE, 1, Menu.NONE, "Log Out");
@@ -138,6 +139,7 @@ public class BarDetailsActivity extends AppCompatActivity implements PopupMenu.O
         mLinearLayoutManager.setStackFromEnd(false);
         mRecyclerView.setLayoutManager(mLinearLayoutManager);
         mRecyclerView.setAdapter(adapterBars);
+        mRecyclerView.hasFixedSize();
 
         /*DailySpecial dailySpecial = new DailySpecial("Sunday FunDay", new Date(), "Sunday", 6);
         DailySpecial dailySpecial1 = new DailySpecial("Monday Madness", new Date(), "Monday", 1);
@@ -145,13 +147,13 @@ public class BarDetailsActivity extends AppCompatActivity implements PopupMenu.O
         dailySpecialsArray.add(dailySpecial1);*/
 
 
-        mondayTV.setOnClickListener(this);
-        tuesdayTV.setOnClickListener(this);
-        wednesdayTV.setOnClickListener(this);
-        thursdayTV.setOnClickListener(this);
-        fridayTV.setOnClickListener(this);
-        saturdayTV.setOnClickListener(this);
-        sundayTV.setOnClickListener(this);
+//        mondayTV.setOnClickListener(this);
+//        tuesdayTV.setOnClickListener(this);
+//        wednesdayTV.setOnClickListener(this);
+//        thursdayTV.setOnClickListener(this);
+//        fridayTV.setOnClickListener(this);
+//        saturdayTV.setOnClickListener(this);
+//        sundayTV.setOnClickListener(this);
 
         dailySpecials = new ArrayList<>();
 
@@ -201,15 +203,16 @@ public class BarDetailsActivity extends AppCompatActivity implements PopupMenu.O
             public void onDataChange(DataSnapshot dataSnapshot) {
 
                 Bar bar = dataSnapshot.getValue(Bar.class);
-                if (bar.getDailySpecialArrayList() == null || bar.getDailySpecialArrayList().size() > 7){
+                if (bar.getDailySpecialArrayList() == null){
                     Log.d(TAG, "Special array empty or does not exist");
-                    DailySpecial mondaySpecial = new DailySpecial("Tap to edit special", "Monday", 0);
-                    DailySpecial tuesdaySpecial = new DailySpecial("Tap to edit special", "Tuesday", 1);
-                    DailySpecial wednesdaySpecial = new DailySpecial("Tap to edit special", "Wednesday", 2);
-                    DailySpecial thursdaySpecial = new DailySpecial("Tap to edit special", "Thursday", 3);
-                    DailySpecial fridaySpecial = new DailySpecial("Tap to edit special", "Friday", 4);
-                    DailySpecial saturdaySpecial = new DailySpecial("Tap to edit special", "Saturday", 5);
-                    DailySpecial sundaySpecial = new DailySpecial("Tap to edit special", "Sunday", 6);
+
+                    DailySpecial mondaySpecial = new DailySpecial("Tap to edit special", "Monday",0, 0);
+                    DailySpecial tuesdaySpecial = new DailySpecial("Tap to edit special", "Tuesday",0, 1);
+                    DailySpecial wednesdaySpecial = new DailySpecial("Tap to edit special", "Wednesday",0, 2);
+                    DailySpecial thursdaySpecial = new DailySpecial("Tap to edit special", "Thursday",0, 3);
+                    DailySpecial fridaySpecial = new DailySpecial("Tap to edit special", "Friday",0, 4);
+                    DailySpecial saturdaySpecial = new DailySpecial("Tap to edit special", "Saturday",0, 5);
+                    DailySpecial sundaySpecial = new DailySpecial("Tap to edit special", "Sunday",0, 6);
                     dailySpecialsArray.add(mondaySpecial);
                     dailySpecialsArray.add(tuesdaySpecial);
                     dailySpecialsArray.add(wednesdaySpecial);
@@ -217,6 +220,10 @@ public class BarDetailsActivity extends AppCompatActivity implements PopupMenu.O
                     dailySpecialsArray.add(fridaySpecial);
                     dailySpecialsArray.add(saturdaySpecial);
                     dailySpecialsArray.add(sundaySpecial);
+                    dailySpecialsArray.trimToSize();
+
+
+
                     adapterBars.notifyDataSetChanged();
 
                     //Update Bar
@@ -240,6 +247,13 @@ public class BarDetailsActivity extends AppCompatActivity implements PopupMenu.O
                         dailySpecialsArray.add(bar.getDailySpecialArrayList().get(i));
                     }
 
+//TODO array list still hangs at 13 items need to reduce to 7
+                    dailySpecialsArray.trimToSize();
+                    Log.d(TAG, String.valueOf(dailySpecialsArray.size()));
+                    if (dailySpecialsArray.size() > 7){
+                        ArrayList<DailySpecial> updateList = new ArrayList<DailySpecial>(dailySpecialsArray.subList(0,6));
+                        dailySpecialsArray = updateList;
+                    }
 
                     for (int i = 0; i < dailySpecialsArray.size(); i++){
                         DailySpecial testSpecial = dailySpecialsArray.get(i);
@@ -504,7 +518,7 @@ public class BarDetailsActivity extends AppCompatActivity implements PopupMenu.O
                 popupMenu.show();
                 break;
 
-            case R.id.mondayTV:
+            /*case R.id.mondayTV:
                 Log.d(TAG, "Monday");
                 dayOfWeek = "Monday";
                 getAlertDialog(this, dayOfWeek, mondayTV).show();
@@ -544,7 +558,7 @@ public class BarDetailsActivity extends AppCompatActivity implements PopupMenu.O
                 Log.d(TAG, "Sunday");
                 dayOfWeek = "Sunday";
                 getAlertDialog(this, dayOfWeek, sundayTV).show();
-                break;
+                break;*/
 
             default:
                 break;

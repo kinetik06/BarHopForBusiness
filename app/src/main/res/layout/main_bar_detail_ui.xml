@@ -164,9 +164,7 @@
 
     </LinearLayout>
 
-<ScrollView
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
+
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -184,7 +182,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
-                android:layout_weight="1"
+
                 android:text="Daily Specials"
                 android:textSize="25sp" />
 
@@ -196,72 +194,6 @@
 
                 >
 
-
-                    <LinearLayout
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:orientation="vertical"
-                        android:layout_weight="1"
-                        android:visibility="gone">
-
-                        <TextView
-                            android:id="@+id/mondayTV"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:paddingBottom="2dp"
-                            android:text="Monday"
-                            android:textSize="15sp" />
-
-                        <TextView
-                            android:id="@+id/tuedayTV"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:paddingBottom="2dp"
-                            android:text="Tuesday"
-                            android:textSize="15sp" />
-
-                        <TextView
-                            android:id="@+id/wednesdayTV"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:paddingBottom="2dp"
-                            android:text="Wednesday"
-                            android:textSize="15sp" />
-
-                        <TextView
-                            android:id="@+id/thursdayTV"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:paddingBottom="2dp"
-                            android:text="Thursday"
-                            android:textSize="15sp" />
-
-                        <TextView
-                            android:id="@+id/fridayTV"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:paddingBottom="2dp"
-                            android:text="Friday"
-                            android:textSize="15sp" />
-
-                        <TextView
-                            android:id="@+id/saturdayTV"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:paddingBottom="2dp"
-                            android:text="Saturday"
-                            android:textSize="15sp" />
-
-                        <TextView
-                            android:id="@+id/sundayTV"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:paddingBottom="2dp"
-                            android:text="Sunday"
-                            android:textSize="15sp" />
-
-
-                </LinearLayout>
 
                 <LinearLayout
                     android:layout_width="0dp"
@@ -283,30 +215,11 @@
 
         </LinearLayout>
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="300dp"
-            android:background="@color/black"
-            >
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textColor="@color/white"
-                android:text="Save Changes"
-                android:paddingTop="10dp"
-                android:textSize="20dp"
-                android:gravity="center"
-                android:id="@+id/saveChangeTV"/>
-
-
-
-        </LinearLayout>
 
     </LinearLayout>
 
 
-</ScrollView>
+
 
 
 
