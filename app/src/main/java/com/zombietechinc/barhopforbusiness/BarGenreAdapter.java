@@ -12,6 +12,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -44,6 +45,8 @@ public class BarGenreAdapter extends RecyclerView.Adapter<BarGenreViewHolder>{
     String userID;
     DatabaseReference dailySpecialRef;
     DatabaseReference dailySpecialArrayRef;
+    DatabaseReference dSpecial;
+    int genreInt;
 
 
     public BarGenreAdapter(Context context, ArrayList<DailySpecial> arrayOfSpecials) {
@@ -65,6 +68,7 @@ public class BarGenreAdapter extends RecyclerView.Adapter<BarGenreViewHolder>{
         }
         context1 = holder.dayOfWeek.getContext();
         dailySpecialArrayRef = databaseReference.child("bars").child(userID).child("dailySpecialArrayList");
+        dSpecial = databaseReference.child("bars_specials");
 
 
 
@@ -76,7 +80,7 @@ public class BarGenreAdapter extends RecyclerView.Adapter<BarGenreViewHolder>{
 
         SimpleDateFormat sdf = new SimpleDateFormat("EEEE");
         Date d = new Date();
-        String dayOfTheWeek = sdf.format(d);
+        final String dayOfTheWeek = sdf.format(d);
 
 
         viewGroup = holder.viewGroup;
@@ -154,6 +158,10 @@ public class BarGenreAdapter extends RecyclerView.Adapter<BarGenreViewHolder>{
                 arrayOfSpecials.add(dailySpecial.getDayInt(), dailySpecial1);
                 dailySpecialArrayRef.setValue(arrayOfSpecials);
                 notifyDataSetChanged();
+
+                //new database try
+
+                dSpecial.child(userID).child(dayOfTheWeek).setValue(dailySpecial);
 
             }
         });
@@ -275,6 +283,165 @@ public class BarGenreAdapter extends RecyclerView.Adapter<BarGenreViewHolder>{
         View view = LayoutInflater.from(context).inflate(R.layout.special_dialog, (ViewGroup) viewGroup, false);
         final EditText specialET = (EditText) view.findViewById(R.id.specialET);
         specialET.requestFocus();
+
+        final LinearLayout danceLayout;
+        final LinearLayout micLayout;
+        final LinearLayout guitarLayout;
+        final LinearLayout mugLayout;
+        final LinearLayout wineLayout;
+
+        danceLayout = view.findViewById(R.id.layout_ball);
+        micLayout = view.findViewById(R.id.layout_mic);
+        guitarLayout = view.findViewById(R.id.layout_guitar);
+        mugLayout = view.findViewById(R.id.layout_mug);
+        wineLayout = view.findViewById(R.id.layout_wine);
+
+        final TextView danceClubTV = view.findViewById(R.id.dance_clubTV);
+        final TextView micTV = view.findViewById(R.id.micTV);
+        final TextView guitarTV = view.findViewById(R.id.live_musicTV);
+        final TextView mugTV = view.findViewById(R.id.pubTV);
+        final TextView wineTV = view.findViewById(R.id.wineTV);
+
+        danceLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                dailySpecial.setGenreInt(1);
+                danceLayout.setBackgroundColor(context1.getResources().getColor(R.color.black));
+                danceClubTV.setTextColor(context1.getResources().getColor(R.color.white));
+                wineLayout.setBackgroundColor(context1.getResources().getColor(R.color.white));
+                mugLayout.setBackgroundColor(context1.getResources().getColor(R.color.white));
+                micLayout.setBackgroundColor(context1.getResources().getColor(R.color.white));
+                guitarLayout.setBackgroundColor(context1.getResources().getColor(R.color.white));
+
+                genreInt = 1;
+
+            }
+        });
+
+        micLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                dailySpecial.setGenreInt(2);
+                micLayout.setBackgroundColor(context1.getResources().getColor(R.color.black));
+                micTV.setTextColor(context1.getResources().getColor(R.color.white));
+                wineLayout.setBackgroundColor(context1.getResources().getColor(R.color.white));
+                mugLayout.setBackgroundColor(context1.getResources().getColor(R.color.white));
+                danceLayout.setBackgroundColor(context1.getResources().getColor(R.color.white));
+                guitarLayout.setBackgroundColor(context1.getResources().getColor(R.color.white));
+                genreInt = 2;
+
+            }
+        });
+
+        guitarLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                dailySpecial.setGenreInt(3);
+                guitarLayout.setBackgroundColor(context1.getResources().getColor(R.color.black));
+                guitarTV.setTextColor(context1.getResources().getColor(R.color.white));
+                wineLayout.setBackgroundColor(context1.getResources().getColor(R.color.white));
+                mugLayout.setBackgroundColor(context1.getResources().getColor(R.color.white));
+                micLayout.setBackgroundColor(context1.getResources().getColor(R.color.white));
+                danceLayout.setBackgroundColor(context1.getResources().getColor(R.color.white));
+                genreInt = 3;
+
+            }
+        });
+
+        mugLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                dailySpecial.setGenreInt(4);
+                mugLayout.setBackgroundColor(context1.getResources().getColor(R.color.black));
+                mugTV.setTextColor(context1.getResources().getColor(R.color.white));
+                wineLayout.setBackgroundColor(context1.getResources().getColor(R.color.white));
+                danceLayout.setBackgroundColor(context1.getResources().getColor(R.color.white));
+                micLayout.setBackgroundColor(context1.getResources().getColor(R.color.white));
+                guitarLayout.setBackgroundColor(context1.getResources().getColor(R.color.white));
+                genreInt = 4;
+
+            }
+        });
+
+        wineLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                dailySpecial.setGenreInt(5);
+                wineLayout.setBackgroundColor(context1.getResources().getColor(R.color.black));
+                wineTV.setTextColor(context1.getResources().getColor(R.color.white));
+                danceLayout.setBackgroundColor(context1.getResources().getColor(R.color.white));
+                mugLayout.setBackgroundColor(context1.getResources().getColor(R.color.white));
+                micLayout.setBackgroundColor(context1.getResources().getColor(R.color.white));
+                guitarLayout.setBackgroundColor(context1.getResources().getColor(R.color.white));
+                genreInt = 5;
+
+            }
+        });
+
+        switch (dailySpecial.getGenreInt()){
+            case 1:
+                danceLayout.setBackgroundColor(context1.getResources().getColor(R.color.black));
+                danceClubTV.setTextColor(context1.getResources().getColor(R.color.white));
+                wineLayout.setBackgroundColor(context1.getResources().getColor(R.color.white));
+                mugLayout.setBackgroundColor(context1.getResources().getColor(R.color.white));
+                micLayout.setBackgroundColor(context1.getResources().getColor(R.color.white));
+                guitarLayout.setBackgroundColor(context1.getResources().getColor(R.color.white));
+                break;
+
+            case 2:
+                micLayout.setBackgroundColor(context1.getResources().getColor(R.color.black));
+                micTV.setTextColor(context1.getResources().getColor(R.color.white));
+                wineLayout.setBackgroundColor(context1.getResources().getColor(R.color.white));
+                mugLayout.setBackgroundColor(context1.getResources().getColor(R.color.white));
+                danceLayout.setBackgroundColor(context1.getResources().getColor(R.color.white));
+                guitarLayout.setBackgroundColor(context1.getResources().getColor(R.color.white));
+                break;
+
+            case 3:
+                guitarLayout.setBackgroundColor(context1.getResources().getColor(R.color.black));
+                guitarTV.setTextColor(context1.getResources().getColor(R.color.white));
+                wineLayout.setBackgroundColor(context1.getResources().getColor(R.color.white));
+                mugLayout.setBackgroundColor(context1.getResources().getColor(R.color.white));
+                micLayout.setBackgroundColor(context1.getResources().getColor(R.color.white));
+                danceLayout.setBackgroundColor(context1.getResources().getColor(R.color.white));
+                break;
+
+            case 4:
+                mugLayout.setBackgroundColor(context1.getResources().getColor(R.color.black));
+                mugTV.setTextColor(context1.getResources().getColor(R.color.white));
+                wineLayout.setBackgroundColor(context1.getResources().getColor(R.color.white));
+                danceLayout.setBackgroundColor(context1.getResources().getColor(R.color.white));
+                micLayout.setBackgroundColor(context1.getResources().getColor(R.color.white));
+                guitarLayout.setBackgroundColor(context1.getResources().getColor(R.color.white));
+                break;
+
+            case 5:
+                wineLayout.setBackgroundColor(context1.getResources().getColor(R.color.black));
+                wineTV.setTextColor(context1.getResources().getColor(R.color.white));
+                danceLayout.setBackgroundColor(context1.getResources().getColor(R.color.white));
+                mugLayout.setBackgroundColor(context1.getResources().getColor(R.color.white));
+                micLayout.setBackgroundColor(context1.getResources().getColor(R.color.white));
+                guitarLayout.setBackgroundColor(context1.getResources().getColor(R.color.white));
+                break;
+
+            case 0:
+                wineLayout.setBackgroundColor(context1.getResources().getColor(R.color.white));
+                danceLayout.setBackgroundColor(context1.getResources().getColor(R.color.white));
+                mugLayout.setBackgroundColor(context1.getResources().getColor(R.color.white));
+                micLayout.setBackgroundColor(context1.getResources().getColor(R.color.white));
+                guitarLayout.setBackgroundColor(context1.getResources().getColor(R.color.white));
+                break;
+
+            default:
+                break;
+        }
+
+
         builder.setView(view);
 
         builder.setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
@@ -292,6 +459,11 @@ public class BarGenreAdapter extends RecyclerView.Adapter<BarGenreViewHolder>{
                     arrayOfSpecials.add(dailySpecial.getDayInt(), dailySpecial1);
                     dailySpecialArrayRef.setValue(arrayOfSpecials);
                     notifyDataSetChanged();
+
+                    //new database try
+
+                    dSpecial.child(dayOfWeek).child(userID).setValue(dailySpecial1);
+
 
 
 

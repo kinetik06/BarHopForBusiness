@@ -8,6 +8,7 @@ import android.graphics.BitmapFactory;
 import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Environment;
+import android.os.Handler;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.v4.content.FileProvider;
@@ -30,6 +31,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.PopupMenu;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -84,7 +86,7 @@ public class BarDetailsActivity extends AppCompatActivity implements PopupMenu.O
     private ImageView barImage;
     static final int REQUEST_TAKE_PHOTO = 1;
     private String mCurrentPhotoPath;
-
+    private DatabaseReference dailySpecialReference;
     private FirebaseStorage storage;
     private StorageReference storageRef;
     private StorageReference profilePicRef;
@@ -121,6 +123,7 @@ public class BarDetailsActivity extends AppCompatActivity implements PopupMenu.O
 
         context = this;
         setContentView(R.layout.main_bar_detail_ui);
+        dailySpecialReference = FirebaseDatabase.getInstance().getReference().child("bars_specials");
 
 
         dailySpecialsArray = new ArrayList<>(7);
@@ -197,7 +200,12 @@ public class BarDetailsActivity extends AppCompatActivity implements PopupMenu.O
         final DatabaseReference barRef = FirebaseDatabase.getInstance().getReference().child("bars").child(userId);
 
         //Daily Special code
-
+        Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            public void run() {
+                // Actions to do after 10 seconds
+            }
+        }, 1000);
         barRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -601,6 +609,8 @@ public class BarDetailsActivity extends AppCompatActivity implements PopupMenu.O
         final EditText specialET = (EditText) view.findViewById(R.id.specialET);
         specialET.requestFocus();
         builder.setView(view);
+
+
 
         builder.setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
             @Override
