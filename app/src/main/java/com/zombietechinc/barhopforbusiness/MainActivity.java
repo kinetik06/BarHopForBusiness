@@ -241,6 +241,8 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
                 if (!dataSnapshot.exists()) {
 
                     Toast.makeText(MainActivity.this, "Error- Loading Info", Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(MainActivity.this, PlacesActivity.class);
+                    startActivity(intent);
 
                 } else {
 

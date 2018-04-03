@@ -3,6 +3,7 @@ package com.zombietechinc.barhopforbusiness;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -29,6 +30,9 @@ public class BarGenreViewHolder extends RecyclerView.ViewHolder {
     LinearLayout layoutWine;
     TextView specialTV;
     ViewGroup viewGroup;
+    ImageView specialIV;
+    TextView genreTV;
+    LinearLayout layoutSpecial;
 
 
 
@@ -47,6 +51,9 @@ public class BarGenreViewHolder extends RecyclerView.ViewHolder {
         layoutWine = itemView.findViewById(R.id.layout_wine);
         specialTV = itemView.findViewById(R.id.specialTV);
         viewGroup = itemView.findViewById(android.R.id.content);
+        specialIV = itemView.findViewById(R.id.special_picIV);
+        genreTV = itemView.findViewById(R.id.genreTV);
+        layoutSpecial = itemView.findViewById(R.id.layout_special);
     }
 
 

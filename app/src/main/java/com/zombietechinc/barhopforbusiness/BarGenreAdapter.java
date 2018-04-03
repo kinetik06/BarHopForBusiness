@@ -88,59 +88,35 @@ public class BarGenreAdapter extends RecyclerView.Adapter<BarGenreViewHolder>{
         holder.dayOfWeek.setText(dailySpecial.getDateAsString());
         holder.specialTV.setText(dailySpecial.getMessage());
 
-
         switch (dailySpecial.getGenreInt()){
             case 1:
-                holder.layoutBall.setBackgroundColor(context1.getResources().getColor(R.color.black));
-                holder.danceClubTV.setTextColor(context1.getResources().getColor(R.color.white));
-                holder.layoutWine.setBackgroundColor(context1.getResources().getColor(R.color.white));
-                holder.layoutMug.setBackgroundColor(context1.getResources().getColor(R.color.white));
-                holder.layoutMic.setBackgroundColor(context1.getResources().getColor(R.color.white));
-                holder.layoutGuitar.setBackgroundColor(context1.getResources().getColor(R.color.white));
+                holder.specialIV.setImageDrawable(context1.getResources().getDrawable(R.drawable.disco_ball_color2));
+                holder.genreTV.setText("Dance Club");
                 break;
 
             case 2:
-                holder.layoutMic.setBackgroundColor(context1.getResources().getColor(R.color.black));
-                holder.micTV.setTextColor(context1.getResources().getColor(R.color.white));
-                holder.layoutWine.setBackgroundColor(context1.getResources().getColor(R.color.white));
-                holder.layoutMug.setBackgroundColor(context1.getResources().getColor(R.color.white));
-                holder.layoutBall.setBackgroundColor(context1.getResources().getColor(R.color.white));
-                holder.layoutGuitar.setBackgroundColor(context1.getResources().getColor(R.color.white));
+                holder.specialIV.setImageDrawable(context1.getResources().getDrawable(R.drawable.mic_color_logo3));
+                holder.genreTV.setText("Karaoke");
                 break;
 
             case 3:
-                holder.layoutGuitar.setBackgroundColor(context1.getResources().getColor(R.color.black));
-                holder.liveMusicTV.setTextColor(context1.getResources().getColor(R.color.white));
-                holder.layoutWine.setBackgroundColor(context1.getResources().getColor(R.color.white));
-                holder.layoutMug.setBackgroundColor(context1.getResources().getColor(R.color.white));
-                holder.layoutMic.setBackgroundColor(context1.getResources().getColor(R.color.white));
-                holder.layoutBall.setBackgroundColor(context1.getResources().getColor(R.color.white));
+                holder.specialIV.setImageDrawable(context1.getResources().getDrawable(R.drawable.guitar_color_logo));
+                holder.genreTV.setText("Live Music");
                 break;
 
             case 4:
-                holder.layoutMug.setBackgroundColor(context1.getResources().getColor(R.color.black));
-                holder.pubTV.setTextColor(context1.getResources().getColor(R.color.white));
-                holder.layoutWine.setBackgroundColor(context1.getResources().getColor(R.color.white));
-                holder.layoutBall.setBackgroundColor(context1.getResources().getColor(R.color.white));
-                holder.layoutMic.setBackgroundColor(context1.getResources().getColor(R.color.white));
-                holder.layoutGuitar.setBackgroundColor(context1.getResources().getColor(R.color.white));
+                holder.specialIV.setImageDrawable(context1.getResources().getDrawable(R.drawable.beermug_color_logo2));
+                holder.genreTV.setText("Pub");
                 break;
 
             case 5:
-                holder.layoutWine.setBackgroundColor(context1.getResources().getColor(R.color.black));
-                holder.wineTV.setTextColor(context1.getResources().getColor(R.color.white));
-                holder.layoutBall.setBackgroundColor(context1.getResources().getColor(R.color.white));
-                holder.layoutMug.setBackgroundColor(context1.getResources().getColor(R.color.white));
-                holder.layoutMic.setBackgroundColor(context1.getResources().getColor(R.color.white));
-                holder.layoutGuitar.setBackgroundColor(context1.getResources().getColor(R.color.white));
+                holder.specialIV.setImageDrawable(context1.getResources().getDrawable(R.drawable.wine_color_logo2));
+                holder.genreTV.setText("Winery");
                 break;
 
             case 0:
-                holder.layoutWine.setBackgroundColor(context1.getResources().getColor(R.color.white));
-                holder.layoutBall.setBackgroundColor(context1.getResources().getColor(R.color.white));
-                holder.layoutMug.setBackgroundColor(context1.getResources().getColor(R.color.white));
-                holder.layoutMic.setBackgroundColor(context1.getResources().getColor(R.color.white));
-                holder.layoutGuitar.setBackgroundColor(context1.getResources().getColor(R.color.white));
+                holder.specialIV.setImageDrawable(context1.getResources().getDrawable(R.drawable.disco_ball_color2));
+                holder.genreTV.setText("");
                 break;
 
             default:
@@ -148,7 +124,7 @@ public class BarGenreAdapter extends RecyclerView.Adapter<BarGenreViewHolder>{
         }
 
 
-        holder.layoutBall.setOnClickListener(new View.OnClickListener() {
+        /*holder.layoutBall.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
@@ -164,9 +140,9 @@ public class BarGenreAdapter extends RecyclerView.Adapter<BarGenreViewHolder>{
                 dSpecial.child(userID).child(dayOfTheWeek).setValue(dailySpecial);
 
             }
-        });
+        });*/
 
-        holder.layoutWine.setOnClickListener(new View.OnClickListener() {
+ /*       holder.layoutWine.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
@@ -224,7 +200,7 @@ public class BarGenreAdapter extends RecyclerView.Adapter<BarGenreViewHolder>{
         });
 
 
-
+*/
 
 
 
@@ -239,7 +215,7 @@ public class BarGenreAdapter extends RecyclerView.Adapter<BarGenreViewHolder>{
 
 
 
-        holder.specialTV.setOnClickListener(new View.OnClickListener() {
+        holder.layoutSpecial.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 getAlertDialog(context1, dailySpecial.dateAsString,holder.specialTV, viewGroup, dailySpecial).show();

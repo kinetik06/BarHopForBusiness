@@ -47,29 +47,6 @@ public class SignupActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_signup);
-        PlaceAutocompleteFragment autocompleteFragment = (PlaceAutocompleteFragment)
-                getFragmentManager().findFragmentById(R.id.place_autocomplete_fragment);
-        autocompleteFragment.setOnPlaceSelectedListener(new PlaceSelectionListener() {
-            @Override
-            public void onPlaceSelected(Place place) {
-                // TODO: Get info about the selected place.
-                Log.i(TAG, "Place: " + place.getName());
-                barName = place.getName().toString();
-                barAddress = place.getAddress().toString();
-                mLatLng = place.getLatLng();
-                latitude = mLatLng.latitude;
-                longitude = mLatLng.longitude;
-                placeId = place.getId();
-
-
-
-            }
-            @Override
-            public void onError(Status status) {
-                // TODO: Handle the error.
-                Log.i(TAG, "An error occurred: " + status);
-            }
-        });
 
         //Get Firebase auth instance
         auth = FirebaseAuth.getInstance();
@@ -139,10 +116,10 @@ public class SignupActivity extends AppCompatActivity {
                                     Toast.makeText(SignupActivity.this, "Authentication failed." + task.getException(),
                                             Toast.LENGTH_SHORT).show();
                                 } else {
-                                    mDatabaseReference.child("bars").child(userId).setValue(bar);
+                                    /*mDatabaseReference.child("bars").child(userId).setValue(bar);
                                     GeoFire geoFire = new GeoFire(mDatabaseReference.child("bars_location"));
-                                    geoFire.setLocation(userId, new GeoLocation(latitude, longitude));
-                                    Intent intent = new Intent(SignupActivity.this, MainActivity.class);
+                                    geoFire.setLocation(userId, new GeoLocation(latitude, longitude));*/
+                                    Intent intent = new Intent(SignupActivity.this, PlacesActivity.class);
                                     startActivity(intent);
                                     finish();
                                 }
