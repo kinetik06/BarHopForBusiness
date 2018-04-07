@@ -95,7 +95,7 @@ public class BarDetailsActivity extends AppCompatActivity implements PopupMenu.O
     TextView barhopTV2;
     TextView forBusinessTV;
     PopupMenu popupMenu;
-
+    DatabaseReference barRef;
     private RecyclerView.Adapter adapterBars;
 
     /*@BindView(R.id.mondayTV) TextView mondayTV;
@@ -130,6 +130,7 @@ public class BarDetailsActivity extends AppCompatActivity implements PopupMenu.O
 
         popupMenu = new PopupMenu(this, findViewById(R.id.menu_iconIV));
         popupMenu.getMenu().add(Menu.NONE, 1, Menu.NONE, "Log Out");
+        popupMenu.getMenu().add(Menu.NONE, 2, Menu.NONE, "Zero Count");
         popupMenu.setOnMenuItemClickListener(this);
         findViewById(R.id.menu_iconIV).setOnClickListener(this);
 
@@ -197,7 +198,7 @@ public class BarDetailsActivity extends AppCompatActivity implements PopupMenu.O
 
         //Pull current Bar Object
 
-        final DatabaseReference barRef = FirebaseDatabase.getInstance().getReference().child("bars").child(userId);
+        barRef = FirebaseDatabase.getInstance().getReference().child("bars").child(userId);
 
         //Daily Special code
         Handler handler = new Handler();
@@ -512,6 +513,9 @@ public class BarDetailsActivity extends AppCompatActivity implements PopupMenu.O
                 FirebaseAuth.getInstance().signOut();
                 Intent intent = new Intent(BarDetailsActivity.this, LoginActivity.class);
                 startActivity(intent);
+
+            case 2:
+                barRef.child("barCount").setValue(0);
 
         }
 
