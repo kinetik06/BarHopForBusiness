@@ -1,4 +1,4 @@
-package com.zombietechinc.barhopforbusiness;
+package zombietechnologiesinc.com.barhopforbusiness;
 
 import android.content.Context;
 import android.content.DialogInterface;
@@ -20,7 +20,6 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.SpannableStringBuilder;
 import android.text.Spanned;
-import android.text.TextUtils;
 import android.text.style.ForegroundColorSpan;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -31,7 +30,6 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.PopupMenu;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -55,9 +53,7 @@ import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Date;
-import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -106,7 +102,7 @@ public class BarDetailsActivity extends AppCompatActivity implements PopupMenu.O
     @BindView(R.id.saturdayTV)TextView saturdayTV;
     @BindView(R.id.sundayTV) TextView sundayTV;*/
     //@BindView(R.id.saveChangeTV) TextView saveChangeTV;
-    @BindView(R.id.barGenreRV)RecyclerView mRecyclerView;
+    @BindView(zombietechnologiesinc.com.barhopforbusiness.R.id.barGenreRV)RecyclerView mRecyclerView;
 
     ArrayList<String> dailySpecials;
     String dayOfWeek;
@@ -122,17 +118,17 @@ public class BarDetailsActivity extends AppCompatActivity implements PopupMenu.O
         super.onCreate(savedInstanceState);
 
         context = this;
-        setContentView(R.layout.main_bar_detail_ui);
+        setContentView(zombietechnologiesinc.com.barhopforbusiness.R.layout.main_bar_detail_ui);
         dailySpecialReference = FirebaseDatabase.getInstance().getReference().child("bars_specials");
 
 
         dailySpecialsArray = new ArrayList<>(7);
 
-        popupMenu = new PopupMenu(this, findViewById(R.id.menu_iconIV));
+        popupMenu = new PopupMenu(this, findViewById(zombietechnologiesinc.com.barhopforbusiness.R.id.menu_iconIV));
         popupMenu.getMenu().add(Menu.NONE, 1, Menu.NONE, "Log Out");
         popupMenu.getMenu().add(Menu.NONE, 2, Menu.NONE, "Zero Count");
         popupMenu.setOnMenuItemClickListener(this);
-        findViewById(R.id.menu_iconIV).setOnClickListener(this);
+        findViewById(zombietechnologiesinc.com.barhopforbusiness.R.id.menu_iconIV).setOnClickListener(this);
 
         //set resources for Daily TextVIews
 
@@ -170,25 +166,25 @@ public class BarDetailsActivity extends AppCompatActivity implements PopupMenu.O
         Intent intent = getIntent();
         barName = intent.getStringExtra("barname");
         barAddress = intent.getStringExtra("baraddress");
-        typeface = ResourcesCompat.getFont(this, R.font.geosanslight);
-        forBusinessTV = findViewById(R.id.forBusinessTV);
+        typeface = ResourcesCompat.getFont(this, zombietechnologiesinc.com.barhopforbusiness.R.font.geosanslight);
+        forBusinessTV = findViewById(zombietechnologiesinc.com.barhopforbusiness.R.id.forBusinessTV);
         forBusinessTV.setTypeface(typeface);
-        barhopTV1 = findViewById(R.id.barhopTV1);
-        barhopTV2 = findViewById(R.id.barhopTV2);
+        barhopTV1 = findViewById(zombietechnologiesinc.com.barhopforbusiness.R.id.barhopTV1);
+        barhopTV2 = findViewById(zombietechnologiesinc.com.barhopforbusiness.R.id.barhopTV2);
         barhopTV1.setTypeface(typeface);
         barhopTV2.setTypeface(typeface);
 
         Log.d("Barname: ", barName + "");
-        barImage = (ImageView)findViewById(R.id.bar_image);
-        barNameTV = (TextView)findViewById(R.id.bar_name);
+        barImage = (ImageView)findViewById(zombietechnologiesinc.com.barhopforbusiness.R.id.bar_image);
+        barNameTV = (TextView)findViewById(zombietechnologiesinc.com.barhopforbusiness.R.id.bar_name);
         barNameTV.setTypeface(typeface);
         //barAddressTV = (TextView)findViewById(R.id.bar_address);
         barNameTV.setText(barName);
         //barAddressTV.setText(barAddress);
         Log.d("CHECK:", barName + barAddress);
-        signOut = (Button) findViewById(R.id.sign_out_button);
-        final EditText barCapET = (EditText) findViewById(R.id.bar_cap);
-        eventET = (EditText)findViewById(R.id.event_et);
+        signOut = (Button) findViewById(zombietechnologiesinc.com.barhopforbusiness.R.id.sign_out_button);
+        final EditText barCapET = (EditText) findViewById(zombietechnologiesinc.com.barhopforbusiness.R.id.bar_cap);
+        eventET = (EditText)findViewById(zombietechnologiesinc.com.barhopforbusiness.R.id.event_et);
         //submit = (Button) findViewById(R.id.update_bar_button);
         mDatabaseReference = FirebaseDatabase.getInstance().getReference();
         mFirebaseUser = FirebaseAuth.getInstance().getCurrentUser();
@@ -526,7 +522,7 @@ public class BarDetailsActivity extends AppCompatActivity implements PopupMenu.O
     public void onClick(View v) {
 
         switch (v.getId()){
-            case R.id.menu_iconIV:
+            case zombietechnologiesinc.com.barhopforbusiness.R.id.menu_iconIV:
                 popupMenu.show();
                 break;
 
@@ -595,8 +591,8 @@ public class BarDetailsActivity extends AppCompatActivity implements PopupMenu.O
 
         //Try to change color
 
-        ForegroundColorSpan titleColorSpan = new ForegroundColorSpan(getResources().getColor(R.color.main_card_border_orange));
-        ForegroundColorSpan messageColorSpan = new ForegroundColorSpan(getResources().getColor(R.color.main_top_grey));
+        ForegroundColorSpan titleColorSpan = new ForegroundColorSpan(getResources().getColor(zombietechnologiesinc.com.barhopforbusiness.R.color.main_card_border_orange));
+        ForegroundColorSpan messageColorSpan = new ForegroundColorSpan(getResources().getColor(zombietechnologiesinc.com.barhopforbusiness.R.color.main_top_grey));
         SpannableStringBuilder spannableTitle = new SpannableStringBuilder(dayOfWeek);
         SpannableStringBuilder spannableMessage = new SpannableStringBuilder("What is your special for " + dayOfWeek + "?");
 
@@ -609,8 +605,8 @@ public class BarDetailsActivity extends AppCompatActivity implements PopupMenu.O
         builder.setMessage(spannableMessage);
 
 
-        View view = LayoutInflater.from(context).inflate(R.layout.special_dialog, (ViewGroup)findViewById(android.R.id.content),false);
-        final EditText specialET = (EditText) view.findViewById(R.id.specialET);
+        View view = LayoutInflater.from(context).inflate(zombietechnologiesinc.com.barhopforbusiness.R.layout.special_dialog, (ViewGroup)findViewById(android.R.id.content),false);
+        final EditText specialET = (EditText) view.findViewById(zombietechnologiesinc.com.barhopforbusiness.R.id.specialET);
         specialET.requestFocus();
         builder.setView(view);
 

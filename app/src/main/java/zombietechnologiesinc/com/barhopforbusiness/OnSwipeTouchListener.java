@@ -1,4 +1,4 @@
-package com.zombietechinc.barhopforbusiness;
+package zombietechnologiesinc.com.barhopforbusiness;
 
 /**
  * Created by emmaramos on 2/5/18.

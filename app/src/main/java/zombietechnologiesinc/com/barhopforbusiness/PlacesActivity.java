@@ -1,9 +1,8 @@
-package com.zombietechinc.barhopforbusiness;
+package zombietechnologiesinc.com.barhopforbusiness;
 
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.support.annotation.NonNull;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -14,7 +13,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.EditText;
 import android.widget.NumberPicker;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -28,7 +26,6 @@ import com.google.android.gms.location.places.ui.PlaceSelectionListener;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -70,19 +67,19 @@ public class PlacesActivity extends AppCompatActivity {
         }
 
 
-        setContentView(R.layout.activity_places);
+        setContentView(zombietechnologiesinc.com.barhopforbusiness.R.layout.activity_places);
 
         mDatabaseReference = FirebaseDatabase.getInstance().getReference();
         placesRef = mDatabaseReference.child("bars_places");
 
-        barEmailTV = (TextView)findViewById(R.id.emailTV);
+        barEmailTV = (TextView)findViewById(zombietechnologiesinc.com.barhopforbusiness.R.id.emailTV);
         barEmailTV.setText("Welcome: " + user.getEmail());
 
         AlertDialog dialog = getWelcomeDialog(this).create();
         dialog.show();
 
         PlaceAutocompleteFragment autocompleteFragment = (PlaceAutocompleteFragment)
-                getFragmentManager().findFragmentById(R.id.place_autocomplete_fragment);
+                getFragmentManager().findFragmentById(zombietechnologiesinc.com.barhopforbusiness.R.id.place_autocomplete_fragment);
         autocompleteFragment.setOnPlaceSelectedListener(new PlaceSelectionListener() {
             @Override
             public void onPlaceSelected(final Place place) {
@@ -148,8 +145,8 @@ public class PlacesActivity extends AppCompatActivity {
 
         //Try to change color
 
-        ForegroundColorSpan titleColorSpan = new ForegroundColorSpan(getResources().getColor(R.color.main_card_border_orange));
-        ForegroundColorSpan messageColorSpan = new ForegroundColorSpan(getResources().getColor(R.color.main_top_grey));
+        ForegroundColorSpan titleColorSpan = new ForegroundColorSpan(getResources().getColor(zombietechnologiesinc.com.barhopforbusiness.R.color.main_card_border_orange));
+        ForegroundColorSpan messageColorSpan = new ForegroundColorSpan(getResources().getColor(zombietechnologiesinc.com.barhopforbusiness.R.color.main_top_grey));
         SpannableStringBuilder spannableTitle = new SpannableStringBuilder("Welcome!");
         SpannableStringBuilder spannableMessage = new SpannableStringBuilder("We just need a few more details about your business. ");
 
@@ -178,8 +175,8 @@ public class PlacesActivity extends AppCompatActivity {
 
         //Try to change color
 
-        ForegroundColorSpan titleColorSpan = new ForegroundColorSpan(getResources().getColor(R.color.main_card_border_orange));
-        ForegroundColorSpan messageColorSpan = new ForegroundColorSpan(getResources().getColor(R.color.main_top_grey));
+        ForegroundColorSpan titleColorSpan = new ForegroundColorSpan(getResources().getColor(zombietechnologiesinc.com.barhopforbusiness.R.color.main_card_border_orange));
+        ForegroundColorSpan messageColorSpan = new ForegroundColorSpan(getResources().getColor(zombietechnologiesinc.com.barhopforbusiness.R.color.main_top_grey));
         SpannableStringBuilder spannableTitle = new SpannableStringBuilder("Almost Done!");
         SpannableStringBuilder spannableMessage = new SpannableStringBuilder("We just have to verify your information:");
 
@@ -192,12 +189,12 @@ public class PlacesActivity extends AppCompatActivity {
         builder.setMessage(spannableMessage);
 
 
-        View view = LayoutInflater.from(context).inflate(R.layout.confirm_place_dialog, (ViewGroup)findViewById(android.R.id.content),false);
-        TextView barNameTV = view.findViewById(R.id.bar_name);
-        TextView barAddressTV = view.findViewById(R.id.bar_address);
-        TextView barPhone = view.findViewById(R.id.bar_number);
+        View view = LayoutInflater.from(context).inflate(zombietechnologiesinc.com.barhopforbusiness.R.layout.confirm_place_dialog, (ViewGroup)findViewById(android.R.id.content),false);
+        TextView barNameTV = view.findViewById(zombietechnologiesinc.com.barhopforbusiness.R.id.bar_name);
+        TextView barAddressTV = view.findViewById(zombietechnologiesinc.com.barhopforbusiness.R.id.bar_address);
+        TextView barPhone = view.findViewById(zombietechnologiesinc.com.barhopforbusiness.R.id.bar_number);
 
-        numberPicker = view.findViewById(R.id.number_picker);
+        numberPicker = view.findViewById(zombietechnologiesinc.com.barhopforbusiness.R.id.number_picker);
         numberPicker.setMinValue(1);
         numberPicker.setMaxValue(500);
 

@@ -1,4 +1,4 @@
-package com.zombietechinc.barhopforbusiness;
+package zombietechnologiesinc.com.barhopforbusiness;
 
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
@@ -24,12 +24,12 @@ public class ResetPasswordActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_reset_password);
+        setContentView(zombietechnologiesinc.com.barhopforbusiness.R.layout.activity_reset_password);
 
-        inputEmail = (EditText) findViewById(R.id.email);
-        btnReset = (Button) findViewById(R.id.btn_reset_password);
-        btnBack = (Button) findViewById(R.id.btn_back);
-        progressBar = (ProgressBar) findViewById(R.id.progressBar);
+        inputEmail = (EditText) findViewById(zombietechnologiesinc.com.barhopforbusiness.R.id.email);
+        btnReset = (Button) findViewById(zombietechnologiesinc.com.barhopforbusiness.R.id.btn_reset_password);
+        btnBack = (Button) findViewById(zombietechnologiesinc.com.barhopforbusiness.R.id.btn_back);
+        progressBar = (ProgressBar) findViewById(zombietechnologiesinc.com.barhopforbusiness.R.id.progressBar);
 
         auth = FirebaseAuth.getInstance();
 

@@ -1,23 +1,16 @@
-package com.zombietechinc.barhopforbusiness;
+package zombietechnologiesinc.com.barhopforbusiness;
 
 import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
-import com.firebase.geofire.GeoFire;
-import com.firebase.geofire.GeoLocation;
-import com.google.android.gms.common.api.Status;
-import com.google.android.gms.location.places.Place;
-import com.google.android.gms.location.places.ui.PlaceAutocompleteFragment;
-import com.google.android.gms.location.places.ui.PlaceSelectionListener;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -46,18 +39,18 @@ public class SignupActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_signup);
+        setContentView(zombietechnologiesinc.com.barhopforbusiness.R.layout.activity_signup);
 
         //Get Firebase auth instance
         auth = FirebaseAuth.getInstance();
         mDatabaseReference = FirebaseDatabase.getInstance().getReference().child("bars");
 
-        btnSignIn = (Button) findViewById(R.id.sign_in_button);
-        btnSignUp = (Button) findViewById(R.id.sign_up_button);
-        inputEmail = (EditText) findViewById(R.id.email);
-        inputPassword = (EditText) findViewById(R.id.password);
-        progressBar = (ProgressBar) findViewById(R.id.progressBar);
-        btnResetPassword = (Button) findViewById(R.id.btn_reset_password);
+        btnSignIn = (Button) findViewById(zombietechnologiesinc.com.barhopforbusiness.R.id.sign_in_button);
+        btnSignUp = (Button) findViewById(zombietechnologiesinc.com.barhopforbusiness.R.id.sign_up_button);
+        inputEmail = (EditText) findViewById(zombietechnologiesinc.com.barhopforbusiness.R.id.email);
+        inputPassword = (EditText) findViewById(zombietechnologiesinc.com.barhopforbusiness.R.id.password);
+        progressBar = (ProgressBar) findViewById(zombietechnologiesinc.com.barhopforbusiness.R.id.progressBar);
+        btnResetPassword = (Button) findViewById(zombietechnologiesinc.com.barhopforbusiness.R.id.btn_reset_password);
 
         btnResetPassword.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -1,4 +1,4 @@
-package com.zombietechinc.barhopforbusiness;
+package zombietechnologiesinc.com.barhopforbusiness;
 
 import android.content.Context;
 import android.content.DialogInterface;
@@ -16,17 +16,14 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.Objects;
 
 /**
  * Created by emmaramos on 1/27/18.
@@ -59,7 +56,7 @@ public class BarGenreAdapter extends RecyclerView.Adapter<BarGenreViewHolder>{
     @Override
     public BarGenreViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 
-        View view = inflater.inflate(R.layout.bar_genre,parent, false);
+        View view = inflater.inflate(zombietechnologiesinc.com.barhopforbusiness.R.layout.bar_genre,parent, false);
         final BarGenreViewHolder holder = new BarGenreViewHolder(view);
         databaseReference = FirebaseDatabase.getInstance().getReference();
         firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
@@ -90,32 +87,32 @@ public class BarGenreAdapter extends RecyclerView.Adapter<BarGenreViewHolder>{
 
         switch (dailySpecial.getGenreInt()){
             case 1:
-                holder.specialIV.setImageDrawable(context1.getResources().getDrawable(R.drawable.disco_ball_color2));
+                holder.specialIV.setImageDrawable(context1.getResources().getDrawable(zombietechnologiesinc.com.barhopforbusiness.R.drawable.disco_ball_color2));
                 holder.genreTV.setText("Dance Club");
                 break;
 
             case 2:
-                holder.specialIV.setImageDrawable(context1.getResources().getDrawable(R.drawable.mic_color_logo3));
+                holder.specialIV.setImageDrawable(context1.getResources().getDrawable(zombietechnologiesinc.com.barhopforbusiness.R.drawable.mic_color_logo3));
                 holder.genreTV.setText("Karaoke");
                 break;
 
             case 3:
-                holder.specialIV.setImageDrawable(context1.getResources().getDrawable(R.drawable.guitar_color_logo));
+                holder.specialIV.setImageDrawable(context1.getResources().getDrawable(zombietechnologiesinc.com.barhopforbusiness.R.drawable.guitar_color_logo));
                 holder.genreTV.setText("Live Music");
                 break;
 
             case 4:
-                holder.specialIV.setImageDrawable(context1.getResources().getDrawable(R.drawable.beermug_color_logo2));
+                holder.specialIV.setImageDrawable(context1.getResources().getDrawable(zombietechnologiesinc.com.barhopforbusiness.R.drawable.beermug_color_logo2));
                 holder.genreTV.setText("Pub");
                 break;
 
             case 5:
-                holder.specialIV.setImageDrawable(context1.getResources().getDrawable(R.drawable.wine_color_logo2));
+                holder.specialIV.setImageDrawable(context1.getResources().getDrawable(zombietechnologiesinc.com.barhopforbusiness.R.drawable.wine_color_logo2));
                 holder.genreTV.setText("Winery");
                 break;
 
             case 0:
-                holder.specialIV.setImageDrawable(context1.getResources().getDrawable(R.drawable.disco_ball_color2));
+                holder.specialIV.setImageDrawable(context1.getResources().getDrawable(zombietechnologiesinc.com.barhopforbusiness.R.drawable.disco_ball_color2));
                 holder.genreTV.setText("");
                 break;
 
@@ -242,8 +239,8 @@ public class BarGenreAdapter extends RecyclerView.Adapter<BarGenreViewHolder>{
 
         //Try to change color
 
-        ForegroundColorSpan titleColorSpan = new ForegroundColorSpan(context.getResources().getColor(R.color.main_card_border_orange));
-        ForegroundColorSpan messageColorSpan = new ForegroundColorSpan(context.getResources().getColor(R.color.main_top_grey));
+        ForegroundColorSpan titleColorSpan = new ForegroundColorSpan(context.getResources().getColor(zombietechnologiesinc.com.barhopforbusiness.R.color.main_card_border_orange));
+        ForegroundColorSpan messageColorSpan = new ForegroundColorSpan(context.getResources().getColor(zombietechnologiesinc.com.barhopforbusiness.R.color.main_top_grey));
         SpannableStringBuilder spannableTitle = new SpannableStringBuilder(dayOfWeek);
         SpannableStringBuilder spannableMessage = new SpannableStringBuilder("What is your special for " + dayOfWeek + "?");
 
@@ -256,8 +253,8 @@ public class BarGenreAdapter extends RecyclerView.Adapter<BarGenreViewHolder>{
         builder.setMessage(spannableMessage);
 
 
-        View view = LayoutInflater.from(context).inflate(R.layout.special_dialog, (ViewGroup) viewGroup, false);
-        final EditText specialET = (EditText) view.findViewById(R.id.specialET);
+        View view = LayoutInflater.from(context).inflate(zombietechnologiesinc.com.barhopforbusiness.R.layout.special_dialog, (ViewGroup) viewGroup, false);
+        final EditText specialET = (EditText) view.findViewById(zombietechnologiesinc.com.barhopforbusiness.R.id.specialET);
         specialET.requestFocus();
 
         final LinearLayout danceLayout;
@@ -266,29 +263,29 @@ public class BarGenreAdapter extends RecyclerView.Adapter<BarGenreViewHolder>{
         final LinearLayout mugLayout;
         final LinearLayout wineLayout;
 
-        danceLayout = view.findViewById(R.id.layout_ball);
-        micLayout = view.findViewById(R.id.layout_mic);
-        guitarLayout = view.findViewById(R.id.layout_guitar);
-        mugLayout = view.findViewById(R.id.layout_mug);
-        wineLayout = view.findViewById(R.id.layout_wine);
+        danceLayout = view.findViewById(zombietechnologiesinc.com.barhopforbusiness.R.id.layout_ball);
+        micLayout = view.findViewById(zombietechnologiesinc.com.barhopforbusiness.R.id.layout_mic);
+        guitarLayout = view.findViewById(zombietechnologiesinc.com.barhopforbusiness.R.id.layout_guitar);
+        mugLayout = view.findViewById(zombietechnologiesinc.com.barhopforbusiness.R.id.layout_mug);
+        wineLayout = view.findViewById(zombietechnologiesinc.com.barhopforbusiness.R.id.layout_wine);
 
-        final TextView danceClubTV = view.findViewById(R.id.dance_clubTV);
-        final TextView micTV = view.findViewById(R.id.micTV);
-        final TextView guitarTV = view.findViewById(R.id.live_musicTV);
-        final TextView mugTV = view.findViewById(R.id.pubTV);
-        final TextView wineTV = view.findViewById(R.id.wineTV);
+        final TextView danceClubTV = view.findViewById(zombietechnologiesinc.com.barhopforbusiness.R.id.dance_clubTV);
+        final TextView micTV = view.findViewById(zombietechnologiesinc.com.barhopforbusiness.R.id.micTV);
+        final TextView guitarTV = view.findViewById(zombietechnologiesinc.com.barhopforbusiness.R.id.live_musicTV);
+        final TextView mugTV = view.findViewById(zombietechnologiesinc.com.barhopforbusiness.R.id.pubTV);
+        final TextView wineTV = view.findViewById(zombietechnologiesinc.com.barhopforbusiness.R.id.wineTV);
 
         danceLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
                 dailySpecial.setGenreInt(1);
-                danceLayout.setBackgroundColor(context1.getResources().getColor(R.color.black));
-                danceClubTV.setTextColor(context1.getResources().getColor(R.color.white));
-                wineLayout.setBackgroundColor(context1.getResources().getColor(R.color.white));
-                mugLayout.setBackgroundColor(context1.getResources().getColor(R.color.white));
-                micLayout.setBackgroundColor(context1.getResources().getColor(R.color.white));
-                guitarLayout.setBackgroundColor(context1.getResources().getColor(R.color.white));
+                danceLayout.setBackgroundColor(context1.getResources().getColor(zombietechnologiesinc.com.barhopforbusiness.R.color.black));
+                danceClubTV.setTextColor(context1.getResources().getColor(zombietechnologiesinc.com.barhopforbusiness.R.color.white));
+                wineLayout.setBackgroundColor(context1.getResources().getColor(zombietechnologiesinc.com.barhopforbusiness.R.color.white));
+                mugLayout.setBackgroundColor(context1.getResources().getColor(zombietechnologiesinc.com.barhopforbusiness.R.color.white));
+                micLayout.setBackgroundColor(context1.getResources().getColor(zombietechnologiesinc.com.barhopforbusiness.R.color.white));
+                guitarLayout.setBackgroundColor(context1.getResources().getColor(zombietechnologiesinc.com.barhopforbusiness.R.color.white));
 
                 genreInt = 1;
 
@@ -300,12 +297,12 @@ public class BarGenreAdapter extends RecyclerView.Adapter<BarGenreViewHolder>{
             public void onClick(View v) {
 
                 dailySpecial.setGenreInt(2);
-                micLayout.setBackgroundColor(context1.getResources().getColor(R.color.black));
-                micTV.setTextColor(context1.getResources().getColor(R.color.white));
-                wineLayout.setBackgroundColor(context1.getResources().getColor(R.color.white));
-                mugLayout.setBackgroundColor(context1.getResources().getColor(R.color.white));
-                danceLayout.setBackgroundColor(context1.getResources().getColor(R.color.white));
-                guitarLayout.setBackgroundColor(context1.getResources().getColor(R.color.white));
+                micLayout.setBackgroundColor(context1.getResources().getColor(zombietechnologiesinc.com.barhopforbusiness.R.color.black));
+                micTV.setTextColor(context1.getResources().getColor(zombietechnologiesinc.com.barhopforbusiness.R.color.white));
+                wineLayout.setBackgroundColor(context1.getResources().getColor(zombietechnologiesinc.com.barhopforbusiness.R.color.white));
+                mugLayout.setBackgroundColor(context1.getResources().getColor(zombietechnologiesinc.com.barhopforbusiness.R.color.white));
+                danceLayout.setBackgroundColor(context1.getResources().getColor(zombietechnologiesinc.com.barhopforbusiness.R.color.white));
+                guitarLayout.setBackgroundColor(context1.getResources().getColor(zombietechnologiesinc.com.barhopforbusiness.R.color.white));
                 genreInt = 2;
 
             }
@@ -316,12 +313,12 @@ public class BarGenreAdapter extends RecyclerView.Adapter<BarGenreViewHolder>{
             public void onClick(View v) {
 
                 dailySpecial.setGenreInt(3);
-                guitarLayout.setBackgroundColor(context1.getResources().getColor(R.color.black));
-                guitarTV.setTextColor(context1.getResources().getColor(R.color.white));
-                wineLayout.setBackgroundColor(context1.getResources().getColor(R.color.white));
-                mugLayout.setBackgroundColor(context1.getResources().getColor(R.color.white));
-                micLayout.setBackgroundColor(context1.getResources().getColor(R.color.white));
-                danceLayout.setBackgroundColor(context1.getResources().getColor(R.color.white));
+                guitarLayout.setBackgroundColor(context1.getResources().getColor(zombietechnologiesinc.com.barhopforbusiness.R.color.black));
+                guitarTV.setTextColor(context1.getResources().getColor(zombietechnologiesinc.com.barhopforbusiness.R.color.white));
+                wineLayout.setBackgroundColor(context1.getResources().getColor(zombietechnologiesinc.com.barhopforbusiness.R.color.white));
+                mugLayout.setBackgroundColor(context1.getResources().getColor(zombietechnologiesinc.com.barhopforbusiness.R.color.white));
+                micLayout.setBackgroundColor(context1.getResources().getColor(zombietechnologiesinc.com.barhopforbusiness.R.color.white));
+                danceLayout.setBackgroundColor(context1.getResources().getColor(zombietechnologiesinc.com.barhopforbusiness.R.color.white));
                 genreInt = 3;
 
             }
@@ -332,12 +329,12 @@ public class BarGenreAdapter extends RecyclerView.Adapter<BarGenreViewHolder>{
             public void onClick(View v) {
 
                 dailySpecial.setGenreInt(4);
-                mugLayout.setBackgroundColor(context1.getResources().getColor(R.color.black));
-                mugTV.setTextColor(context1.getResources().getColor(R.color.white));
-                wineLayout.setBackgroundColor(context1.getResources().getColor(R.color.white));
-                danceLayout.setBackgroundColor(context1.getResources().getColor(R.color.white));
-                micLayout.setBackgroundColor(context1.getResources().getColor(R.color.white));
-                guitarLayout.setBackgroundColor(context1.getResources().getColor(R.color.white));
+                mugLayout.setBackgroundColor(context1.getResources().getColor(zombietechnologiesinc.com.barhopforbusiness.R.color.black));
+                mugTV.setTextColor(context1.getResources().getColor(zombietechnologiesinc.com.barhopforbusiness.R.color.white));
+                wineLayout.setBackgroundColor(context1.getResources().getColor(zombietechnologiesinc.com.barhopforbusiness.R.color.white));
+                danceLayout.setBackgroundColor(context1.getResources().getColor(zombietechnologiesinc.com.barhopforbusiness.R.color.white));
+                micLayout.setBackgroundColor(context1.getResources().getColor(zombietechnologiesinc.com.barhopforbusiness.R.color.white));
+                guitarLayout.setBackgroundColor(context1.getResources().getColor(zombietechnologiesinc.com.barhopforbusiness.R.color.white));
                 genreInt = 4;
 
             }
@@ -348,12 +345,12 @@ public class BarGenreAdapter extends RecyclerView.Adapter<BarGenreViewHolder>{
             public void onClick(View v) {
 
                 dailySpecial.setGenreInt(5);
-                wineLayout.setBackgroundColor(context1.getResources().getColor(R.color.black));
-                wineTV.setTextColor(context1.getResources().getColor(R.color.white));
-                danceLayout.setBackgroundColor(context1.getResources().getColor(R.color.white));
-                mugLayout.setBackgroundColor(context1.getResources().getColor(R.color.white));
-                micLayout.setBackgroundColor(context1.getResources().getColor(R.color.white));
-                guitarLayout.setBackgroundColor(context1.getResources().getColor(R.color.white));
+                wineLayout.setBackgroundColor(context1.getResources().getColor(zombietechnologiesinc.com.barhopforbusiness.R.color.black));
+                wineTV.setTextColor(context1.getResources().getColor(zombietechnologiesinc.com.barhopforbusiness.R.color.white));
+                danceLayout.setBackgroundColor(context1.getResources().getColor(zombietechnologiesinc.com.barhopforbusiness.R.color.white));
+                mugLayout.setBackgroundColor(context1.getResources().getColor(zombietechnologiesinc.com.barhopforbusiness.R.color.white));
+                micLayout.setBackgroundColor(context1.getResources().getColor(zombietechnologiesinc.com.barhopforbusiness.R.color.white));
+                guitarLayout.setBackgroundColor(context1.getResources().getColor(zombietechnologiesinc.com.barhopforbusiness.R.color.white));
                 genreInt = 5;
 
             }
@@ -361,56 +358,56 @@ public class BarGenreAdapter extends RecyclerView.Adapter<BarGenreViewHolder>{
 
         switch (dailySpecial.getGenreInt()){
             case 1:
-                danceLayout.setBackgroundColor(context1.getResources().getColor(R.color.black));
-                danceClubTV.setTextColor(context1.getResources().getColor(R.color.white));
-                wineLayout.setBackgroundColor(context1.getResources().getColor(R.color.white));
-                mugLayout.setBackgroundColor(context1.getResources().getColor(R.color.white));
-                micLayout.setBackgroundColor(context1.getResources().getColor(R.color.white));
-                guitarLayout.setBackgroundColor(context1.getResources().getColor(R.color.white));
+                danceLayout.setBackgroundColor(context1.getResources().getColor(zombietechnologiesinc.com.barhopforbusiness.R.color.black));
+                danceClubTV.setTextColor(context1.getResources().getColor(zombietechnologiesinc.com.barhopforbusiness.R.color.white));
+                wineLayout.setBackgroundColor(context1.getResources().getColor(zombietechnologiesinc.com.barhopforbusiness.R.color.white));
+                mugLayout.setBackgroundColor(context1.getResources().getColor(zombietechnologiesinc.com.barhopforbusiness.R.color.white));
+                micLayout.setBackgroundColor(context1.getResources().getColor(zombietechnologiesinc.com.barhopforbusiness.R.color.white));
+                guitarLayout.setBackgroundColor(context1.getResources().getColor(zombietechnologiesinc.com.barhopforbusiness.R.color.white));
                 break;
 
             case 2:
-                micLayout.setBackgroundColor(context1.getResources().getColor(R.color.black));
-                micTV.setTextColor(context1.getResources().getColor(R.color.white));
-                wineLayout.setBackgroundColor(context1.getResources().getColor(R.color.white));
-                mugLayout.setBackgroundColor(context1.getResources().getColor(R.color.white));
-                danceLayout.setBackgroundColor(context1.getResources().getColor(R.color.white));
-                guitarLayout.setBackgroundColor(context1.getResources().getColor(R.color.white));
+                micLayout.setBackgroundColor(context1.getResources().getColor(zombietechnologiesinc.com.barhopforbusiness.R.color.black));
+                micTV.setTextColor(context1.getResources().getColor(zombietechnologiesinc.com.barhopforbusiness.R.color.white));
+                wineLayout.setBackgroundColor(context1.getResources().getColor(zombietechnologiesinc.com.barhopforbusiness.R.color.white));
+                mugLayout.setBackgroundColor(context1.getResources().getColor(zombietechnologiesinc.com.barhopforbusiness.R.color.white));
+                danceLayout.setBackgroundColor(context1.getResources().getColor(zombietechnologiesinc.com.barhopforbusiness.R.color.white));
+                guitarLayout.setBackgroundColor(context1.getResources().getColor(zombietechnologiesinc.com.barhopforbusiness.R.color.white));
                 break;
 
             case 3:
-                guitarLayout.setBackgroundColor(context1.getResources().getColor(R.color.black));
-                guitarTV.setTextColor(context1.getResources().getColor(R.color.white));
-                wineLayout.setBackgroundColor(context1.getResources().getColor(R.color.white));
-                mugLayout.setBackgroundColor(context1.getResources().getColor(R.color.white));
-                micLayout.setBackgroundColor(context1.getResources().getColor(R.color.white));
-                danceLayout.setBackgroundColor(context1.getResources().getColor(R.color.white));
+                guitarLayout.setBackgroundColor(context1.getResources().getColor(zombietechnologiesinc.com.barhopforbusiness.R.color.black));
+                guitarTV.setTextColor(context1.getResources().getColor(zombietechnologiesinc.com.barhopforbusiness.R.color.white));
+                wineLayout.setBackgroundColor(context1.getResources().getColor(zombietechnologiesinc.com.barhopforbusiness.R.color.white));
+                mugLayout.setBackgroundColor(context1.getResources().getColor(zombietechnologiesinc.com.barhopforbusiness.R.color.white));
+                micLayout.setBackgroundColor(context1.getResources().getColor(zombietechnologiesinc.com.barhopforbusiness.R.color.white));
+                danceLayout.setBackgroundColor(context1.getResources().getColor(zombietechnologiesinc.com.barhopforbusiness.R.color.white));
                 break;
 
             case 4:
-                mugLayout.setBackgroundColor(context1.getResources().getColor(R.color.black));
-                mugTV.setTextColor(context1.getResources().getColor(R.color.white));
-                wineLayout.setBackgroundColor(context1.getResources().getColor(R.color.white));
-                danceLayout.setBackgroundColor(context1.getResources().getColor(R.color.white));
-                micLayout.setBackgroundColor(context1.getResources().getColor(R.color.white));
-                guitarLayout.setBackgroundColor(context1.getResources().getColor(R.color.white));
+                mugLayout.setBackgroundColor(context1.getResources().getColor(zombietechnologiesinc.com.barhopforbusiness.R.color.black));
+                mugTV.setTextColor(context1.getResources().getColor(zombietechnologiesinc.com.barhopforbusiness.R.color.white));
+                wineLayout.setBackgroundColor(context1.getResources().getColor(zombietechnologiesinc.com.barhopforbusiness.R.color.white));
+                danceLayout.setBackgroundColor(context1.getResources().getColor(zombietechnologiesinc.com.barhopforbusiness.R.color.white));
+                micLayout.setBackgroundColor(context1.getResources().getColor(zombietechnologiesinc.com.barhopforbusiness.R.color.white));
+                guitarLayout.setBackgroundColor(context1.getResources().getColor(zombietechnologiesinc.com.barhopforbusiness.R.color.white));
                 break;
 
             case 5:
-                wineLayout.setBackgroundColor(context1.getResources().getColor(R.color.black));
-                wineTV.setTextColor(context1.getResources().getColor(R.color.white));
-                danceLayout.setBackgroundColor(context1.getResources().getColor(R.color.white));
-                mugLayout.setBackgroundColor(context1.getResources().getColor(R.color.white));
-                micLayout.setBackgroundColor(context1.getResources().getColor(R.color.white));
-                guitarLayout.setBackgroundColor(context1.getResources().getColor(R.color.white));
+                wineLayout.setBackgroundColor(context1.getResources().getColor(zombietechnologiesinc.com.barhopforbusiness.R.color.black));
+                wineTV.setTextColor(context1.getResources().getColor(zombietechnologiesinc.com.barhopforbusiness.R.color.white));
+                danceLayout.setBackgroundColor(context1.getResources().getColor(zombietechnologiesinc.com.barhopforbusiness.R.color.white));
+                mugLayout.setBackgroundColor(context1.getResources().getColor(zombietechnologiesinc.com.barhopforbusiness.R.color.white));
+                micLayout.setBackgroundColor(context1.getResources().getColor(zombietechnologiesinc.com.barhopforbusiness.R.color.white));
+                guitarLayout.setBackgroundColor(context1.getResources().getColor(zombietechnologiesinc.com.barhopforbusiness.R.color.white));
                 break;
 
             case 0:
-                wineLayout.setBackgroundColor(context1.getResources().getColor(R.color.white));
-                danceLayout.setBackgroundColor(context1.getResources().getColor(R.color.white));
-                mugLayout.setBackgroundColor(context1.getResources().getColor(R.color.white));
-                micLayout.setBackgroundColor(context1.getResources().getColor(R.color.white));
-                guitarLayout.setBackgroundColor(context1.getResources().getColor(R.color.white));
+                wineLayout.setBackgroundColor(context1.getResources().getColor(zombietechnologiesinc.com.barhopforbusiness.R.color.white));
+                danceLayout.setBackgroundColor(context1.getResources().getColor(zombietechnologiesinc.com.barhopforbusiness.R.color.white));
+                mugLayout.setBackgroundColor(context1.getResources().getColor(zombietechnologiesinc.com.barhopforbusiness.R.color.white));
+                micLayout.setBackgroundColor(context1.getResources().getColor(zombietechnologiesinc.com.barhopforbusiness.R.color.white));
+                guitarLayout.setBackgroundColor(context1.getResources().getColor(zombietechnologiesinc.com.barhopforbusiness.R.color.white));
                 break;
 
             default:

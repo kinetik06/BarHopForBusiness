@@ -1,4 +1,4 @@
-package com.zombietechinc.barhopforbusiness;
+package zombietechnologiesinc.com.barhopforbusiness;
 
 import android.content.Intent;
 import android.support.annotation.NonNull;
@@ -36,17 +36,17 @@ public class LoginActivity extends AppCompatActivity {
         }
 
         // set the view now
-        setContentView(R.layout.new_login_main);
+        setContentView(zombietechnologiesinc.com.barhopforbusiness.R.layout.new_login_main);
 
         /*Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);*/
 
-        inputEmail = (EditText) findViewById(R.id.email);
-        inputPassword = (EditText) findViewById(R.id.password);
-        progressBar = (ProgressBar) findViewById(R.id.progressBar);
-        btnSignup = (Button) findViewById(R.id.btn_signup);
-        btnLogin = (Button) findViewById(R.id.btn_login);
-        btnReset = (Button) findViewById(R.id.btn_reset_password);
+        inputEmail = (EditText) findViewById(zombietechnologiesinc.com.barhopforbusiness.R.id.email);
+        inputPassword = (EditText) findViewById(zombietechnologiesinc.com.barhopforbusiness.R.id.password);
+        progressBar = (ProgressBar) findViewById(zombietechnologiesinc.com.barhopforbusiness.R.id.progressBar);
+        btnSignup = (Button) findViewById(zombietechnologiesinc.com.barhopforbusiness.R.id.btn_signup);
+        btnLogin = (Button) findViewById(zombietechnologiesinc.com.barhopforbusiness.R.id.btn_login);
+        btnReset = (Button) findViewById(zombietechnologiesinc.com.barhopforbusiness.R.id.btn_reset_password);
 
         //Get Firebase auth instance
         auth = FirebaseAuth.getInstance();
@@ -95,9 +95,9 @@ public class LoginActivity extends AppCompatActivity {
                                 if (!task.isSuccessful()) {
                                     // there was an error
                                     if (password.length() < 6) {
-                                        inputPassword.setError(getString(R.string.minimum_password));
+                                        inputPassword.setError(getString(zombietechnologiesinc.com.barhopforbusiness.R.string.minimum_password));
                                     } else {
-                                        Toast.makeText(LoginActivity.this, getString(R.string.auth_failed), Toast.LENGTH_LONG).show();
+                                        Toast.makeText(LoginActivity.this, getString(zombietechnologiesinc.com.barhopforbusiness.R.string.auth_failed), Toast.LENGTH_LONG).show();
                                     }
                                 } else {
                                     Intent intent = new Intent(LoginActivity.this, MainActivity.class);

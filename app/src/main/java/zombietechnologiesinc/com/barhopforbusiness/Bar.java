@@ -1,6 +1,4 @@
-package com.zombietechinc.barhopforbusiness;
-
-import com.google.android.gms.maps.model.LatLng;
+package zombietechnologiesinc.com.barhopforbusiness;
 
 import java.util.ArrayList;
 import java.util.HashMap;

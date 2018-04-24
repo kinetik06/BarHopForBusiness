@@ -1,6 +1,9 @@
-package com.zombietechinc.barhopforbusiness;
+package zombietechnologiesinc.com.barhopforbusiness;
 
+import android.Manifest;
+import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Typeface;
@@ -9,13 +12,14 @@ import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.content.FileProvider;
 import android.support.v4.content.res.ResourcesCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.view.animation.AlphaAnimation;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -26,37 +30,27 @@ import android.widget.Toast;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
-import com.google.android.gms.common.api.ResultCallback;
 import com.google.android.gms.location.LocationServices;
-import com.google.android.gms.location.places.GeoDataApi;
-import com.google.android.gms.location.places.PlacePhotoMetadata;
 import com.google.android.gms.location.places.PlacePhotoMetadataBuffer;
-import com.google.android.gms.location.places.PlacePhotoMetadataResult;
-import com.google.android.gms.location.places.PlacePhotoResult;
 import com.google.android.gms.location.places.Places;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
-
-import org.w3c.dom.Text;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.Objects;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -98,7 +92,8 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
     //@BindView(R.id.addtion)LinearLayout addition;
     //@BindView(R.id.subtraction) LinearLayout subtraction;
     //@BindView(R.id.plusSignTV)TextView plusSignTV;
-    @BindView(R.id.swipeLayout)LinearLayout swipeLayout;
+    @BindView (R.id.swipeLayout)LinearLayout swipeLayout;
+    private static final int REQUEST_WRITE = 1;
 
 
 
@@ -200,21 +195,21 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
             }
         });*/
 
-        typeface = ResourcesCompat.getFont(this, R.font.geosanslight);
-        final TextView barNameTV = (TextView) findViewById(R.id.bar_name);
-        final TextView barAddressTV = (TextView) findViewById(R.id.bar_notes);
-        final TextView barCountTV = (TextView) findViewById(R.id.count);
+        typeface = ResourcesCompat.getFont(this, zombietechnologiesinc.com.barhopforbusiness.R.font.geosanslight);
+        final TextView barNameTV = (TextView) findViewById(zombietechnologiesinc.com.barhopforbusiness.R.id.bar_name);
+        final TextView barAddressTV = (TextView) findViewById(zombietechnologiesinc.com.barhopforbusiness.R.id.bar_notes);
+        final TextView barCountTV = (TextView) findViewById(zombietechnologiesinc.com.barhopforbusiness.R.id.count);
 
         barNameTV.setTypeface(typeface);
         barAddressTV.setTypeface(typeface);
         barCountTV.setTypeface(typeface);
         //plusOneButton = (Button) findViewById(R.id.buttonIn);
         //minusOneButton = (Button) findViewById(R.id.buttonOut);
-        plusOne = (ImageView) findViewById(R.id.plusOne);
-        minusOne = (ImageView) findViewById(R.id.minusOne);
+        plusOne = (ImageView) findViewById(zombietechnologiesinc.com.barhopforbusiness.R.id.plusOne);
+        minusOne = (ImageView) findViewById(zombietechnologiesinc.com.barhopforbusiness.R.id.minusOne);
 
 
-        barImage = (ImageView)findViewById(R.id.bar_image);
+        barImage = (ImageView)findViewById(zombietechnologiesinc.com.barhopforbusiness.R.id.bar_image);
 
         if (mGoogleApiClient == null) {
             mGoogleApiClient = new GoogleApiClient.Builder(this)
@@ -429,7 +424,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
             // Continue only if the File was successfully created
             if (photoFile != null) {
                 Uri photoURI = FileProvider.getUriForFile(this,
-                        "com.example.android.fileprovider",
+                        "com.example.fileprovider",
                         photoFile);
                 takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI);
                 startActivityForResult(takePictureIntent, REQUEST_TAKE_PHOTO);
@@ -473,7 +468,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
 
     }
     private File createImageFile() throws IOException {
-        // Create an image file name
+
         String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
         String imageFileName = "JPEG_" + timeStamp + "_";
         File storageDir = getExternalFilesDir(Environment.DIRECTORY_PICTURES);
@@ -486,6 +481,10 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
         // Save a file: path for use with ACTION_VIEW intents
         mCurrentPhotoPath = image.getAbsolutePath();
         return image;
+
+
     }
+
+
 
 }
